@@ -1,8 +1,12 @@
+import { Outlet } from 'react-router-dom';
+
 function AppLayout() {
   return (
     <div>
       AppLayout
-      <p>AppLayout text</p>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }

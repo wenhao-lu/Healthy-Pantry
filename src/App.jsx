@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Navbar from './ui/Navbar';
+import RootLayout from './ui/RootLayout';
 import Homepage from './pages/Homepage';
 import Stocks from './pages/Stocks';
 import Recipes from './pages/Recipes';
@@ -20,8 +20,7 @@ import SidebarLayout from './ui/SidebarLayout';
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex min-h-screen flex-col items-center gap-6 px-4 py-6">
-        <Navbar />
+      <RootLayout>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/about" element={<About />} />
@@ -46,7 +45,7 @@ function App() {
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </div>
+      </RootLayout>
     </BrowserRouter>
   );
 }

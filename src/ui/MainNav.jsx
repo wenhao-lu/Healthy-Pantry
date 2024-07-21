@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 function MainNav() {
   return (
-    <div className="text-l z-10 flex gap-6 font-semibold text-green-900 sm:text-xl">
+    <div className="z-10 flex gap-3 text-xs font-semibold text-green-900 sm:text-xl">
       <NavLink to="/about" className="transition-colors hover:text-green-500">
         About
       </NavLink>

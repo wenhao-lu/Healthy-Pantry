@@ -15,7 +15,7 @@ function Sidebar() {
         <ul className="flex flex-col gap-2">
           <li>
             <a
-              href="/app/dashboard"
+              href="/dashboard"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
@@ -25,7 +25,7 @@ function Sidebar() {
 
           <li>
             <a
-              href="/app/account"
+              href="/dashboard/account"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
@@ -34,7 +34,7 @@ function Sidebar() {
           </li>
           <li>
             <a
-              href="/app/stocklist"
+              href="/dashboard/stocklist"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
@@ -43,7 +43,7 @@ function Sidebar() {
           </li>
           <li>
             <a
-              href="/app/recipelist"
+              href="/dashboard/recipelist"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />

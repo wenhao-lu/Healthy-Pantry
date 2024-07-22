@@ -7,15 +7,14 @@ import Recipes from './pages/Recipes';
 import RecipeDetail from './pages/RecipeDetail';
 import About from './ui/About';
 import Login from './ui/Login';
-import AppLayout from './ui/AppLayout';
+
 import Dashboard from './pages/Dashboard';
-import Status from './components/Status';
+
 import StockList from './components/StockList';
 import RecipeList from './components/RecipeList';
 import Account from './pages/Account';
 import PageNotFound from './ui/PageNotFound';
-import BasicLayout from './ui/BasicLayout';
-import SidebarLayout from './ui/SidebarLayout';
+import DashboardLayout from './ui/DashboardLayout';
 
 function App() {
   return (
@@ -26,23 +25,16 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="app" element={<AppLayout />}>
-            <Route element={<BasicLayout />}>
-              <Route path="stocks" element={<Stocks />} />
-              <Route path="recipes" element={<Recipes />} />
-              <Route path="recipes/:id" element={<RecipeDetail />} />
-            </Route>
+          <Route path="/stocks" element={<Stocks />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/recipes/:id" element={<RecipeDetail />} />
 
-            <Route element={<SidebarLayout />}>
-              <Route path="dashboard" element={<Dashboard />}>
-                <Route index element={<Status />} />
-                <Route path="stocklist" element={<StockList />} />
-                <Route path="recipelist" element={<RecipeList />} />
-                <Route path="account" element={<Account />} />
-              </Route>
-            </Route>
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="stocklist" element={<StockList />} />
+            <Route path="recipelist" element={<RecipeList />} />
+            <Route path="account" element={<Account />} />
           </Route>
-
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </RootLayout>

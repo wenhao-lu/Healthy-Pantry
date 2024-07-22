@@ -19,7 +19,7 @@ function MobileNav() {
         <ul className="flex items-center justify-around gap-6">
           <li>
             <a
-              href="/app/dashboard"
+              href="/dashboard"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <MdQueryStats className="text-xl text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
@@ -28,15 +28,15 @@ function MobileNav() {
 
           <li>
             <a
-              href="/app/stocklist"
+              href="/dashboard/stocklist"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
-              <LuBanana className="text-xl text-gray-400 transition-all hover:text-gray-500" />
+              <LuBanana className="text-xl text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
             </a>
           </li>
           <li>
             <a
-              href="/app/recipelist"
+              href="/dashboard/recipelist"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <PiForkKnife className="text-xl text-gray-400 transition-all hover:text-gray-500" />
@@ -44,7 +44,7 @@ function MobileNav() {
           </li>
           <li>
             <a
-              href="/app/account"
+              href="/dashboard/account"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <HiOutlineUser className="text-xl text-gray-400 transition-all hover:text-gray-500" />

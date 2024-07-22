@@ -12,7 +12,7 @@ function DashboardLayout() {
         <div className="hidden sm:block">
           <Sidebar />
         </div>
-        <main>
+        <main className="grow">
           <Outlet />
         </main>
       </div>

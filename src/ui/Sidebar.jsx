@@ -2,7 +2,7 @@ import { HiOutlineHome } from 'react-icons/hi';
 
 function Sidebar() {
   return (
-    <div className="flex grid-rows-3 flex-col gap-6 border-r-2 bg-gray-50 px-9 py-9">
+    <div className="hidden grid-rows-3 flex-col gap-6 border-r-2 bg-gray-50 px-9 py-9 sm:flex">
       <div className="flex flex-col items-center justify-center gap-3 text-sm font-semibold text-gray-600">
         <img
           src="/avatar.jpg"

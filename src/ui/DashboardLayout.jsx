@@ -8,7 +8,7 @@ function DashboardLayout() {
       <div className="block sm:hidden">
         <MobileNav />
       </div>
-      <div className="grid h-screen grid-cols-[16rem_1fr]">
+      <div className="flex h-screen">
         <div className="hidden sm:block">
           <Sidebar />
         </div>

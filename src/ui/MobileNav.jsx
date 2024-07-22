@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { HiOutlineUser } from 'react-icons/hi';
 import { FaArrowRightFromBracket } from 'react-icons/fa6';
 import { PiForkKnife } from 'react-icons/pi';
@@ -18,45 +19,45 @@ function MobileNav() {
       <nav>
         <ul className="flex items-center justify-around gap-6">
           <li>
-            <a
-              href="/dashboard"
+            <Link
+              to="/dashboard"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <MdQueryStats className="text-xl text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a
-              href="/dashboard/stocklist"
+            <Link
+              to="/dashboard/stocklist"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <LuBanana className="text-xl text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/dashboard/recipelist"
+            <Link
+              to="/dashboard/recipelist"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <PiForkKnife className="text-xl text-gray-400 transition-all hover:text-gray-500" />
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/dashboard/account"
+            <Link
+              to="/dashboard/account"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <HiOutlineUser className="text-xl text-gray-400 transition-all hover:text-gray-500" />
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
               <FaArrowRightFromBracket className="text-xl text-gray-400 transition-all hover:text-gray-500" />
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

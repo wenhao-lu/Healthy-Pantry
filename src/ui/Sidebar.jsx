@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { HiOutlineHome } from 'react-icons/hi';
 
 function Sidebar() {
@@ -14,50 +15,50 @@ function Sidebar() {
       <nav>
         <ul className="flex flex-col gap-2">
           <li>
-            <a
-              href="/dashboard"
+            <Link
+              to="/dashboard"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
               <span>Stats</span>
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a
-              href="/dashboard/account"
+            <Link
+              to="/dashboard/account"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
               <span>Account</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/dashboard/stocklist"
+            <Link
+              to="/dashboard/stocklist"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
               <span>Stocks</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/dashboard/recipelist"
+            <Link
+              to="/dashboard/recipelist"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
               <span>Recipes</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-normal text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-800 active:text-gray-800"
             >
               <HiOutlineHome className="text-xl text-gray-400 transition-all hover:text-gray-500" />
               <span>Log out</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

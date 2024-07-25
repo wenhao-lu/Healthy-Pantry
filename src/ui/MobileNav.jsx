@@ -9,11 +9,13 @@ function MobileNav() {
   return (
     <div className="flex w-screen items-center justify-between gap-6 border-b-2 bg-gray-50 px-9 py-3">
       <div className="flex items-center justify-center gap-3 text-xs font-semibold text-gray-600">
-        <img
-          src="/avatar.jpg"
-          alt="user avatar"
-          className="w-8 rounded-[50%] outline outline-1"
-        />
+        <Link to="/dashboard/account">
+          <img
+            src="/avatar.jpg"
+            alt="user avatar"
+            className="w-8 cursor-pointer rounded-[50%] outline outline-1"
+          />
+        </Link>
         <p>User</p>
       </div>
       <nav>

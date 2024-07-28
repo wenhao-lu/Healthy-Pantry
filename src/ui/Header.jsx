@@ -3,7 +3,7 @@ import MainNav from './MainNav';
 
 function Header() {
   return (
-    <header className="gap6 flex items-center justify-between gap-16">
+    <header className="flex items-center justify-between gap-16 pb-6">
       <Logo />
       <MainNav />
     </header>

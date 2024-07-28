@@ -70,20 +70,28 @@ function Stocks() {
         <Button type="primary">Add</Button>
       </form>
 
-      <div>
-        <p>Food List</p>
+      <div className="bg-indigo-50 px-4 py-4">
+        <div className="ml-auto mr-auto w-96">
+          <p className="pb-2 font-semibold">Food List</p>
 
-        {stockList > 0 && (
-          <ul>
-            {stockList.map((item, index) => (
-              <li key={index}>
-                <p>
-                  {item.stockQuantity} {item.stockUnit} {item.stockName}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
+          {stockList.length > 0 && (
+            <ul>
+              {stockList.map((item) => (
+                <li
+                  key={item.date}
+                  className="flex items-center justify-between border-b-2 border-gray-100 px-2"
+                >
+                  <div className="flex py-1 text-gray-700">
+                    <p className="capitalize">{item.stockName}</p>
+                    <p className="pl-4 pr-1">{item.stockQuantity}</p>
+                    <p>{item.stockUnit}</p>
+                  </div>
+                  <button className="opacity-60 hover:opacity-100">✖️</button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );

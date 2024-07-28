@@ -70,7 +70,7 @@ function Stocks() {
         <Button type="primary">Add</Button>
       </form>
 
-      <div className="bg-indigo-50 px-4 py-4">
+      <div className="min-h-[60dvh] bg-indigo-50 px-4 py-4">
         <div className="ml-auto mr-auto w-96">
           <p className="pb-2 font-semibold">Food List</p>
 

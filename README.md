@@ -1,3 +1,3 @@
 # Healthy Pantry
 
-## App under developing
+## App in developing

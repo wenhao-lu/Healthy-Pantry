@@ -23,4 +23,6 @@ temp
 *.njsproj
 *.sln
 *.sw?
-src/services/apiAuth.jsx
+
+# Ignore file
+src/services/apiAuth.jsx 

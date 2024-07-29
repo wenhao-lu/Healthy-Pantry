@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../ui/Button';
-import APP_ID from '../services/apiAuth';
-import APP_KEY from '../services/apiAuth';
+import { APP_ID, APP_KEY } from '../services/apiAuth';
 
 function Stocks() {
   const [stockName, setStockName] = useState('');
@@ -19,7 +18,7 @@ function Stocks() {
       let data = await response.json();
 
       console.log(data);
-      setRecipes(data.Hits);
+      setRecipes(data.hits);
     } catch (err) {
       console.error(err.message);
     }
@@ -127,6 +126,25 @@ function Stocks() {
           )}
         </div>
       </div>
+
+      {recipes.length > 0 && (
+        <div className="mt-6 px-4 py-4">
+          <h2 className="text-xl font-semibold">Recipes:</h2>
+          <ul>
+            {recipes.map((recipe, index) => (
+              <li key={index}>
+                <a
+                  href={recipe.recipe.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {recipe.recipe.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

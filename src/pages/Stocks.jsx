@@ -17,7 +17,7 @@ function Stocks() {
       stockName,
       stockQuantity,
       stockUnit,
-      date: Date.now(),
+      id: Date.now(),
     };
 
     setStockList((preList) => [...preList, newItem]);
@@ -25,6 +25,10 @@ function Stocks() {
     setStockName('');
     setStockQuantity(0);
     setStockUnit('g');
+  }
+
+  function handleDeleteItem(id) {
+    setStockList((items) => items.filter((item) => item.id !== id));
   }
 
   return (
@@ -78,7 +82,7 @@ function Stocks() {
             <ul>
               {stockList.map((item) => (
                 <li
-                  key={item.date}
+                  key={item.id}
                   className="flex items-center justify-between border-b-2 border-gray-100 px-2"
                 >
                   <div className="flex py-1 text-gray-700">
@@ -86,7 +90,12 @@ function Stocks() {
                     <p className="pl-4 pr-1">{item.stockQuantity}</p>
                     <p>{item.stockUnit}</p>
                   </div>
-                  <button className="opacity-60 hover:opacity-100">✖️</button>
+                  <button
+                    className="opacity-60 hover:opacity-100"
+                    onClick={() => handleDeleteItem(item.id)}
+                  >
+                    ✖️
+                  </button>
                 </li>
               ))}
             </ul>

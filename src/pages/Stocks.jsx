@@ -1,12 +1,29 @@
-import InputArea from '../ui/InputArea';
+import { useEffect, useState } from 'react';
 import Button from '../ui/Button';
-import { useState } from 'react';
+import APP_ID from '../services/apiAuth';
+import APP_KEY from '../services/apiAuth';
 
 function Stocks() {
   const [stockName, setStockName] = useState('');
   const [stockQuantity, setStockQuantity] = useState(0);
   const [stockUnit, setStockUnit] = useState('g');
   const [stockList, setStockList] = useState([]);
+
+  const [recipes, setRecipes] = useState([]);
+
+  const handleSearchClick = async (itemName) => {
+    try {
+      let response = await fetch(
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${itemName}&app_id=${APP_ID}&app_key=${APP_KEY}`,
+      );
+      let data = await response.json();
+
+      console.log(data);
+      setRecipes(data.Hits);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -90,12 +107,20 @@ function Stocks() {
                     <p className="pl-4 pr-1">{item.stockQuantity}</p>
                     <p>{item.stockUnit}</p>
                   </div>
-                  <button
-                    className="opacity-60 hover:opacity-100"
-                    onClick={() => handleDeleteItem(item.id)}
-                  >
-                    ✖️
-                  </button>
+                  <div className="flex items-center gap-4">
+                    <button
+                      className="text-xl opacity-70 hover:opacity-100"
+                      onClick={() => handleSearchClick(item.stockName)}
+                    >
+                      🧑‍🍳
+                    </button>
+                    <button
+                      className="opacity-60 hover:opacity-100"
+                      onClick={() => handleDeleteItem(item.id)}
+                    >
+                      ✖️
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

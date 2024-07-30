@@ -1,14 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '../ui/Button';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addStock, getStocks } from '../services/apiStocks';
+import Spinner from '../ui/Spinner';
 
-function Stocks() {
+function StocksPage() {
   const [stockName, setStockName] = useState('');
   const [stockQuantity, setStockQuantity] = useState(0);
   const [stockUnit, setStockUnit] = useState('g');
-  const [stockList, setStockList] = useState([]);
-
   const [recipes, setRecipes] = useState([]);
+
+  const queryClient = useQueryClient();
+
+  const {
+    data: stocks,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['stocks'],
+    queryFn: getStocks,
+  });
+
+  const addStockMutation = useMutation({
+    mutationFn: addStock,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['stocks'] });
+    },
+  });
 
   const handleSearchClick = async (itemName) => {
     try {
@@ -29,22 +48,29 @@ function Stocks() {
 
     if (!stockName || stockQuantity <= 0) return;
 
-    const newItem = {
+    const newStock = {
       stockName,
       stockQuantity,
       stockUnit,
-      id: Date.now(),
     };
 
-    setStockList((preList) => [...preList, newItem]);
+    try {
+      addStockMutation.mutate(newStock);
 
-    setStockName('');
-    setStockQuantity(0);
-    setStockUnit('g');
+      setStockName('');
+      setStockQuantity(0);
+      setStockUnit('g');
+    } catch (error) {
+      console.err('Error adding stock', error);
+    }
   }
 
+  {
+    /*
   function handleDeleteItem(id) {
     setStockList((items) => items.filter((item) => item.id !== id));
+  }
+  */
   }
 
   return (
@@ -94,9 +120,13 @@ function Stocks() {
         <div className="ml-auto mr-auto w-96">
           <p className="pb-2 font-semibold">Food List</p>
 
-          {stockList.length > 0 && (
+          {isLoading ? (
+            <Spinner />
+          ) : error ? (
+            <div>Error: {error.message}</div>
+          ) : (
             <ul>
-              {stockList.map((item) => (
+              {stocks.map((item) => (
                 <li
                   key={item.id}
                   className="flex items-center justify-between border-b-2 border-gray-100 px-2"
@@ -115,7 +145,7 @@ function Stocks() {
                     </button>
                     <button
                       className="opacity-60 hover:opacity-100"
-                      onClick={() => handleDeleteItem(item.id)}
+                      //onClick={() => handleDeleteItem(item.id)}
                     >
                       ✖️
                     </button>
@@ -149,4 +179,4 @@ function Stocks() {
   );
 }
 
-export default Stocks;
+export default StocksPage;

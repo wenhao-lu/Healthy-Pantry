@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import RootLayout from './ui/RootLayout';
 import Homepage from './pages/Homepage';
-import Stocks from './pages/Stocks';
+import StocksPage from './pages/StocksPage';
 import Recipes from './pages/Recipes';
 import RecipeDetail from './pages/RecipeDetail';
 import About from './ui/About';
@@ -15,7 +17,6 @@ import RecipeList from './components/RecipeList';
 import Account from './pages/Account';
 import PageNotFound from './ui/PageNotFound';
 import DashboardLayout from './ui/DashboardLayout';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
       <BrowserRouter>
         <RootLayout>
           <Routes>
@@ -35,7 +37,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
 
-            <Route path="/stocks" element={<Stocks />} />
+            <Route path="/stocks" element={<StocksPage />} />
             <Route path="/recipes" element={<Recipes />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
 

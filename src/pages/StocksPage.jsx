@@ -116,9 +116,9 @@ function StocksPage() {
         <Button type="primary">Add</Button>
       </form>
 
-      <div className="min-h-[60dvh] bg-indigo-50 px-4 py-4">
+      <div className="h-[30dvh] bg-indigo-50 px-4 py-4">
         <div className="ml-auto mr-auto w-96">
-          <p className="pb-2 font-semibold">Food List</p>
+          <p className="pb-2 text-xl font-semibold">Food List 🧀</p>
 
           {isLoading ? (
             <Spinner />
@@ -157,23 +157,46 @@ function StocksPage() {
         </div>
       </div>
 
-      {recipes.length > 0 && (
-        <div className="mt-6 px-4 py-4">
-          <h2 className="text-xl font-semibold">Recipes:</h2>
-          <ul>
-            {recipes.map((recipe, index) => (
-              <li key={index}>
-                <a
-                  href={recipe.recipe.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {recipe.recipe.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {isLoading ? (
+        <Spinner />
+      ) : error ? (
+        <div>Error: {error.message}</div>
+      ) : (
+        recipes.length > 0 && (
+          <div className="bg-green-50 px-4 py-4">
+            <h2 className="pb-2 pl-2 text-xl font-semibold">Recipes😋:</h2>
+            <div className="ml-auto mr-auto grid w-[24rem] grid-cols-2 items-center justify-center gap-4">
+              {recipes.map((recipe, index) => (
+                <div key={index} className="border-b-[0.1rem] border-gray-200">
+                  <a href={recipe.recipe.url} target="_blank">
+                    <img
+                      src={recipe.recipe.image}
+                      alt={recipe.recipe.label}
+                      className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
+                    />
+                    <p className="text-[0.8rem] font-semibold">
+                      {recipe.recipe.label}
+                    </p>
+                  </a>
+                  <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
+                    <p className="capitalize">
+                      <span className="text-green-600">
+                        {Math.round(Number(recipe.recipe.calories))}
+                      </span>{' '}
+                      calories
+                    </p>
+                    <p className="capitalize">
+                      <span className="text-green-600">
+                        {recipe.recipe.ingredients.length}
+                      </span>{' '}
+                      ingredients
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
       )}
     </div>
   );

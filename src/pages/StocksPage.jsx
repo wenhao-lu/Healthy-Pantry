@@ -164,10 +164,15 @@ function StocksPage() {
       ) : (
         recipes.length > 0 && (
           <div className="bg-green-50 px-4 py-4">
-            <h2 className="pb-2 pl-2 text-xl font-semibold">Recipes😋:</h2>
-            <div className="ml-auto mr-auto grid w-[24rem] grid-cols-2 items-center justify-center gap-4">
+            <h2 className="ml-auto mr-auto w-96 pb-2 text-xl font-semibold">
+              Recipes😋:
+            </h2>
+            <div className="ml-auto mr-auto flex w-96 flex-row flex-wrap items-center justify-center gap-4">
               {recipes.map((recipe, index) => (
-                <div key={index} className="border-b-[0.1rem] border-gray-200">
+                <div
+                  key={index}
+                  className="w-44 border-b-[0.1rem] border-gray-200"
+                >
                   <a href={recipe.recipe.url} target="_blank">
                     <img
                       src={recipe.recipe.image}

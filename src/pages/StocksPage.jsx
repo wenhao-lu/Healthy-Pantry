@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../ui/Button';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -10,6 +10,24 @@ function StocksPage() {
   const [stockQuantity, setStockQuantity] = useState(0);
   const [stockUnit, setStockUnit] = useState('g');
   const [recipes, setRecipes] = useState([]);
+  const [randomRecipes, setRandomRecipes] = [];
+
+  useEffect(function () {
+    async function fetchRandomRecipes() {
+      try {
+        const res = await fetch(
+          `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}&health=low-fat-abs&random=true`,
+        );
+        const data = await res.json();
+        console.log(data);
+        //setsetRandomRecipes(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    fetchRandomRecipes();
+  }, []);
 
   const queryClient = useQueryClient();
 

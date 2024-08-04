@@ -1,7 +1,7 @@
 function Recipes() {
   return (
     <div>
-      Recipes
+      Today's Recipes 🥗
       <p>Recipes text</p>
     </div>
   );

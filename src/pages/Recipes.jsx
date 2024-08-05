@@ -3,7 +3,7 @@ import GetRandomRecipes from '../components/GetRandomRecipes';
 function Recipes({ randomRecipes, setRandomRecipes }) {
   return (
     <div>
-      Recipes 🥗
+      Healthy Recipes 🥗
       <GetRandomRecipes
         randomRecipes={randomRecipes}
         setRandomRecipes={setRandomRecipes}

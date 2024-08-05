@@ -1,8 +1,13 @@
-function Recipes() {
+import GetRandomRecipes from '../components/GetRandomRecipes';
+
+function Recipes({ randomRecipes, setRandomRecipes }) {
   return (
     <div>
-      Today's Recipes 🥗
-      <p>Recipes text</p>
+      Recipes 🥗
+      <GetRandomRecipes
+        randomRecipes={randomRecipes}
+        setRandomRecipes={setRandomRecipes}
+      />
     </div>
   );
 }

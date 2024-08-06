@@ -12,6 +12,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
   const [stockUnit, setStockUnit] = useState('g');
   const [recipes, setRecipes] = useState([]);
 
+  // add new food to stock and load them from database 'stocks'
   const queryClient = useQueryClient();
 
   const {
@@ -30,6 +31,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
     },
   });
 
+  // onClick to search for recipes based on selected food
   const handleSearchClick = async (itemName) => {
     try {
       let response = await fetch(
@@ -44,6 +46,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
     }
   };
 
+  // handle form submittion, add new food stock
   function handleSubmit(e) {
     e.preventDefault();
 

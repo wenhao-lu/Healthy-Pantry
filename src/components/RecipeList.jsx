@@ -1,7 +1,6 @@
 function RecipeList() {
   return (
     <div className="flex w-full items-center justify-between">
-      retrieve data from 'recipeList'
       <div
         role="table"
         className="grow overflow-hidden rounded-sm border-l border-gray-200 bg-gray-50 text-xs"

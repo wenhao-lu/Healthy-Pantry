@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from '../ui/Button';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addStock, getStocks } from '../services/apiStocks';
+import { addStock, deleteStock, getStocks } from '../services/apiStocks';
 import Spinner from '../ui/Spinner';
 import GetRandomRecipes from '../components/GetRandomRecipes';
 
@@ -30,6 +30,19 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
       queryClient.invalidateQueries({ queryKey: ['stocks'] });
     },
   });
+
+  const deleteStockMutation = useMutation({
+    mutationFn: deleteStock,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['stocks'],
+      });
+    },
+  });
+
+  function hendleDeleteStock(id) {
+    deleteStockMutation.mutate(id);
+  }
 
   // onClick to search for recipes based on selected food
   const handleSearchClick = async (itemName) => {
@@ -120,7 +133,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
         <Button type="primary">Add</Button>
       </form>
 
-      <div className="h-[30dvh] bg-indigo-50 px-4 py-4">
+      <div className="min-h-[30dvh] bg-indigo-50 px-4 py-4">
         <div className="ml-auto mr-auto w-96">
           <p className="pb-2 text-xl font-semibold">Food List 🧀</p>
 
@@ -136,22 +149,32 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                   className="flex items-center justify-between border-b-2 border-gray-100 px-2"
                 >
                   <div className="flex py-1 text-gray-700">
-                    <p className="capitalize">{item.stockName}</p>
-                    <p className="pl-4 pr-1">{item.stockQuantity}</p>
-                    <p>{item.stockUnit}</p>
+                    <p className="w-16 capitalize">{item.stockName}</p>
+                    <p className="pl-4 pr-1 text-gray-500">
+                      {item.stockQuantity}
+                    </p>
+                    <p className="italic text-gray-500">{item.stockUnit}</p>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <button
-                      className="text-xl opacity-70 hover:opacity-100"
-                      onClick={() => handleSearchClick(item.stockName)}
-                    >
-                      🧑‍🍳
-                    </button>
+                  <div className="flex items-center gap-6">
                     <button
                       className="opacity-60 hover:opacity-100"
                       //onClick={() => handleDeleteItem(item.id)}
                     >
+                      📝
+                    </button>
+
+                    <button
+                      className="opacity-60 hover:opacity-100"
+                      onClick={() => hendleDeleteStock(item.id)}
+                    >
                       ✖️
+                    </button>
+
+                    <button
+                      className="pl-6 text-xl opacity-70 hover:opacity-100"
+                      onClick={() => handleSearchClick(item.stockName)}
+                    >
+                      🧑‍🍳
                     </button>
                   </div>
                 </li>

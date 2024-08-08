@@ -21,3 +21,14 @@ export async function addStock(newStock) {
 
   return data;
 }
+
+export async function deleteStock(id) {
+  const { data, error } = await supabase.from('stocks').delete().eq('id', id);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Stock could not be deleted');
+  }
+
+  return data;
+}

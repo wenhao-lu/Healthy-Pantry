@@ -11,6 +11,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
   const [stockQuantity, setStockQuantity] = useState(0);
   const [stockUnit, setStockUnit] = useState('g');
   const [recipes, setRecipes] = useState([]);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   // add new food to stock and load them from database 'stocks'
   const queryClient = useQueryClient();
@@ -179,6 +180,30 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                   </div>
                 </li>
               ))}
+
+              <form className="m-auto flex w-4/5 flex-col items-center rounded-md border border-indigo-200 shadow-sm">
+                <div className="flex flex-nowrap gap-2 pt-2">
+                  <input
+                    type="text"
+                    id="stockName"
+                    className="w-20 rounded-sm"
+                  />
+                  <input
+                    type="text"
+                    id="stockQuantity"
+                    className="w-20 rounded-sm"
+                  />
+                  <input
+                    type="text"
+                    id="stockUnit"
+                    className="w-20 rounded-sm"
+                  />
+                </div>
+                <div className="flex gap-2 py-2 tracking-tighter">
+                  <Button type="small">Cancel</Button>
+                  <Button type="small">Edit</Button>
+                </div>
+              </form>
             </ul>
           )}
         </div>

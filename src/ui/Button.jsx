@@ -4,7 +4,7 @@ function Button({ children, disabled, type, onClick }) {
 
   const styles = {
     primary: base + ' bg-indigo-500 hover:bg-indigo-700 w-16',
-    small: base + ' py-4',
+    small: base + ' bg-indigo-400 hover:bg-indigo-600 w-12 text-xs',
     secondary: base + ' pt-6',
   };
 

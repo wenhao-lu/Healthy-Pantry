@@ -7,12 +7,30 @@ function GetRandomRecipes() {
   useEffect(function () {
     async function fetchRandomRecipes() {
       try {
+        // save random recipes in localstorage for 6 hours, to prevent frequent API calls
+        const storedData = localStorage.getItem('randomRecipes');
+        const storedTimestamp = localStorage.getItem('randomRecipesTimestamp');
+        const currentTime = Date.now();
+
+        if (storedData && storedTimestamp) {
+          const ageInHours = (currentTime - storedTimestamp) / 1000 / 60 / 60;
+          if (ageInHours < 6) {
+            setRandomRecipes(JSON.parse(storedData));
+            return;
+          }
+        }
+
+        // fetch new random recipes
         const res = await fetch(
           `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}&diet=low-fat&random=true`,
         );
         const data = await res.json();
-        console.log(data);
+        //console.log(data);
         setRandomRecipes(data.hits);
+
+        // save the fetched data to localStorage
+        localStorage.setItem('randomRecipes', JSON.stringify(data.hits));
+        localStorage.setItem('randomRecipesTimestamp', currentTime);
       } catch (err) {
         console.error(err.message);
       }
@@ -23,7 +41,7 @@ function GetRandomRecipes() {
   return (
     <div className="bg-green-50 px-4 py-4">
       <h2 className="ml-auto mr-auto w-96 pb-2 text-xl font-semibold">
-        Recipes😋:
+        Popular Recipes 🔥:
       </h2>
       <div className="ml-auto mr-auto flex w-96 flex-row flex-wrap items-center justify-center gap-4">
         {randomRecipes.map((randomRecipe, index) => (

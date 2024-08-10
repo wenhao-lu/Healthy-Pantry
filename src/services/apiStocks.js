@@ -32,3 +32,18 @@ export async function deleteStock(id) {
 
   return data;
 }
+
+export async function editStock(id, updatedStock) {
+  const { data, error } = await supabase
+    .from('stocks')
+    .update(updatedStock)
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Stock could not be updated');
+  }
+
+  return data;
+}

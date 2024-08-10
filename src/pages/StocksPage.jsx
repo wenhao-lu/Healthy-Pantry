@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import Button from '../ui/Button';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addStock, deleteStock, getStocks } from '../services/apiStocks';
+import {
+  addStock,
+  deleteStock,
+  editStock,
+  getStocks,
+} from '../services/apiStocks';
 import Spinner from '../ui/Spinner';
 import GetRandomRecipes from '../components/GetRandomRecipes';
 
@@ -11,6 +16,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
   const [stockQuantity, setStockQuantity] = useState(0);
   const [stockUnit, setStockUnit] = useState('g');
   const [recipes, setRecipes] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
 
   // add new food to stock and load them from database 'stocks'
@@ -41,8 +47,55 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
     },
   });
 
+  const editStockMutation = useMutation({
+    mutationFn: editStock,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['stocks'],
+      });
+    },
+  });
+
   function hendleDeleteStock(id) {
     deleteStockMutation.mutate(id);
+  }
+
+  // handle editing a selected stock item
+  function handleEditStock(id) {
+    const selectedStock = stocks.find((item) => item.id === id);
+    setStockName(selectedStock.stockName);
+    setStockQuantity(selectedStock.stockQuantity);
+    setStockUnit(selectedStock.stockUnit);
+    setSelectedId(id);
+    setShowEditForm(true);
+  }
+
+  function handleSubmitEdit(e) {
+    e.preventDefault();
+    if (!stockName || stockQuantity <= 0) return;
+    const updatedStock = {
+      stockName,
+      stockQuantity,
+      stockUnit,
+    };
+    try {
+      editStockMutation.mutate(
+        { id: selectedId, updatedStock },
+        {
+          onSuccess: () => {
+            setStockName('');
+            setStockQuantity(0);
+            setStockUnit('g');
+            setShowEditForm(false);
+          },
+          onError: (error) => {
+            console.error('Error updating stock', error);
+          },
+        },
+      );
+    } catch (error) {
+      console.err('Error updating stock', error);
+    }
   }
 
   // onClick to search for recipes based on selected food
@@ -83,14 +136,6 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
     }
   }
 
-  {
-    /*
-  function handleDeleteItem(id) {
-    setStockList((items) => items.filter((item) => item.id !== id));
-  }
-  */
-  }
-
   return (
     <div className="w-screen">
       <p className="bg-emerald-100 py-10 text-center text-xl font-semibold">
@@ -106,20 +151,21 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
           <input
             type="text"
             placeholder="food..."
-            value={stockName}
+            //value={stockName}
             onChange={(e) => setStockName(e.target.value)}
             className="w-32 rounded-md border border-gray-300 bg-yellow-50 px-2 py-1.5"
           ></input>
           <input
             type="text"
-            value={stockQuantity}
+            //value={stockQuantity}
+            placeholder="1"
             onChange={(e) => setStockQuantity(Number(e.target.value))}
             className="w-32 rounded-md border border-gray-300 bg-yellow-50 px-2 py-1.5"
           ></input>
 
           <select
             className="rounded-md bg-yellow-50 text-center"
-            value={stockUnit}
+            //value={stockUnit}
             onChange={(e) => setStockUnit(e.target.value)}
           >
             <option value="g">g</option>
@@ -159,7 +205,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                   <div className="flex items-center gap-6">
                     <button
                       className="opacity-60 hover:opacity-100"
-                      //onClick={() => handleDeleteItem(item.id)}
+                      onClick={() => handleEditStock(item.id)}
                     >
                       📝
                     </button>
@@ -181,29 +227,40 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                 </li>
               ))}
 
-              <form className="m-auto flex w-4/5 flex-col items-center rounded-md border border-indigo-200 shadow-sm">
-                <div className="flex flex-nowrap gap-2 pt-2">
-                  <input
-                    type="text"
-                    id="stockName"
-                    className="w-20 rounded-sm"
-                  />
-                  <input
-                    type="text"
-                    id="stockQuantity"
-                    className="w-20 rounded-sm"
-                  />
-                  <input
-                    type="text"
-                    id="stockUnit"
-                    className="w-20 rounded-sm"
-                  />
-                </div>
-                <div className="flex gap-2 py-2 tracking-tighter">
-                  <Button type="small">Cancel</Button>
-                  <Button type="small">Edit</Button>
-                </div>
-              </form>
+              {showEditForm && (
+                <form
+                  onSubmit={handleSubmitEdit}
+                  className="m-auto flex w-4/5 flex-col items-center rounded-md border border-indigo-200 shadow-sm transition"
+                >
+                  <div className="flex flex-nowrap gap-2 pt-2">
+                    <input
+                      type="text"
+                      id="stockName"
+                      value={stockName}
+                      onChange={(e) => setStockName(e.target.value)}
+                      className="w-20 rounded-sm"
+                    />
+                    <input
+                      type="text"
+                      id="stockQuantity"
+                      value={stockQuantity}
+                      onChange={(e) => setStockQuantity(e.target.value)}
+                      className="w-20 rounded-sm"
+                    />
+                    <input
+                      type="text"
+                      id="stockUnit"
+                      value={stockUnit}
+                      onChange={(e) => setStockUnit(e.target.value)}
+                      className="w-20 rounded-sm"
+                    />
+                  </div>
+                  <div className="flex gap-2 py-2 tracking-tighter">
+                    <Button type="small">Cancel</Button>
+                    <Button type="small">Edit</Button>
+                  </div>
+                </form>
+              )}
             </ul>
           )}
         </div>

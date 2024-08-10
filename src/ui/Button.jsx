@@ -1,4 +1,4 @@
-function Button({ children, disabled, type, onClick }) {
+function Button({ children, disabled, style, onClick }) {
   const base =
     'rounded-md border border-gray-300 px-1.5 py-1 font-[500] shadow-sm transition';
 
@@ -10,13 +10,13 @@ function Button({ children, disabled, type, onClick }) {
 
   if (onClick)
     return (
-      <button onClick={onClick} disabled={disabled} className={styles[type]}>
+      <button onClick={onClick} disabled={disabled} className={styles[style]}>
         {children}
       </button>
     );
 
   return (
-    <button disabled={disabled} className={styles[type]}>
+    <button disabled={disabled} className={styles[style]}>
       {children}
     </button>
   );

@@ -48,7 +48,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
   });
 
   const editStockMutation = useMutation({
-    mutationFn: editStock,
+    mutationFn: ({ id, updatedStock }) => editStock(id, updatedStock),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['stocks'],
@@ -96,6 +96,10 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
     } catch (error) {
       console.err('Error updating stock', error);
     }
+  }
+
+  function handleToggleEditForm() {
+    setShowEditForm((showEditForm) => !showEditForm);
   }
 
   // onClick to search for recipes based on selected food
@@ -177,7 +181,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
           </select>
         </div>
 
-        <Button type="primary">Add</Button>
+        <Button style="primary">Add</Button>
       </form>
 
       <div className="min-h-[30dvh] bg-indigo-50 px-4 py-4">
@@ -218,7 +222,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                     </button>
 
                     <button
-                      className="pl-6 text-xl opacity-70 hover:opacity-100"
+                      className="text-xl opacity-70 hover:opacity-100"
                       onClick={() => handleSearchClick(item.stockName)}
                     >
                       🧑‍🍳
@@ -256,8 +260,10 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                     />
                   </div>
                   <div className="flex gap-2 py-2 tracking-tighter">
-                    <Button type="small">Cancel</Button>
-                    <Button type="small">Edit</Button>
+                    <Button style="small" onClick={handleToggleEditForm}>
+                      Cancel
+                    </Button>
+                    <Button style="small">Edit</Button>
                   </div>
                 </form>
               )}

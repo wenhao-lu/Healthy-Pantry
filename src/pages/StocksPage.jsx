@@ -10,6 +10,8 @@ import {
 } from '../services/apiStocks';
 import Spinner from '../ui/Spinner';
 import GetRandomRecipes from '../components/GetRandomRecipes';
+import { Link } from 'react-router-dom';
+import RecipeDetail from './RecipeDetail';
 
 function StocksPage({ randomRecipes, setRandomRecipes }) {
   const [stockName, setStockName] = useState('');
@@ -287,6 +289,16 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                 key={index}
                 className="w-44 border-b-[0.1rem] border-gray-200"
               >
+                {/* 
+                <Link to={`/recipes/${recipe.recipe.label}`}>
+                  <RecipeDetail
+                    image={recipe.recipe.image}
+                    name={recipe.recipe.label}
+                    calories={recipe.recipe.calories}
+                  />
+                </Link>
+                */}
+
                 <a href={recipe.recipe.url} target="_blank">
                   <img
                     src={recipe.recipe.image}
@@ -297,6 +309,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
                     {recipe.recipe.label}
                   </p>
                 </a>
+
                 <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
                   <p className="capitalize">
                     <span className="text-green-600">

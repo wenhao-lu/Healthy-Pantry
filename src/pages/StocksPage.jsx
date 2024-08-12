@@ -188,7 +188,7 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
 
       <div className="min-h-[30dvh] bg-indigo-50 px-4 py-4">
         <div className="ml-auto mr-auto w-96">
-          <p className="pb-3 text-xl font-semibold">Food List 🧀</p>
+          <p className="pb-2 text-xl font-semibold">Food List 🧀</p>
 
           {isLoading ? (
             <Spinner />

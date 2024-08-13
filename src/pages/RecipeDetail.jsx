@@ -45,7 +45,7 @@ function RecipeDetail() {
     <>
       {recipe && (
         <div className="flex flex-col gap-4 rounded-sm p-2">
-          <div className="flex min-w-96 justify-around px-4 py-4 shadow-xl">
+          <div className="flex min-w-[26rem] justify-around px-4 py-4 shadow-xl">
             <div>
               <a href={recipe.url} target="_blank" rel="noopener noreferrer">
                 <img
@@ -56,64 +56,93 @@ function RecipeDetail() {
               </a>
             </div>
 
-            <div className="text-center text-xs">
+            <div className="text-center">
               <p className="h-10 text-sm font-bold">{recipe.label}</p>
+              <div className="mx-auto my-0 flex max-w-[40vw] flex-row flex-wrap justify-center gap-2 px-2 text-[0.6rem]">
+                <div className="flex justify-center gap-1">
+                  {recipe.cuisineType &&
+                    recipe.cuisineType.map((cuiType, index) => (
+                      <span
+                        key={index}
+                        className="rounded-md bg-orange-500 px-1 italic"
+                      >
+                        {cuiType}
+                      </span>
+                    ))}
+                </div>
 
-              <div className="mb-0.5 flex justify-center gap-1">
-                {recipe.cuisineType &&
-                  recipe.cuisineType.map((cuiType, index) => (
-                    <span
-                      key={index}
-                      className="rounded-md bg-yellow-500 px-0.5 italic"
-                    >
-                      {cuiType}
-                    </span>
-                  ))}
+                <div className="flex justify-center gap-1">
+                  {recipe.dishType &&
+                    recipe.dishType.map((diType, index) => (
+                      <span
+                        key={index}
+                        className="rounded-md bg-yellow-500 px-1 italic"
+                      >
+                        {diType}
+                      </span>
+                    ))}
+                </div>
+
+                <div className="flex justify-center gap-1">
+                  {recipe.mealType &&
+                    recipe.mealType.map((meType, index) => (
+                      <span
+                        key={index}
+                        className="rounded-md bg-cyan-500 px-1 italic"
+                      >
+                        {meType}
+                      </span>
+                    ))}
+                </div>
+
+                <div className="flex justify-center gap-1">
+                  {recipe.dietLabels &&
+                    recipe.dietLabels.map((dietLabel, index) => (
+                      <span
+                        key={index}
+                        className="rounded-md bg-lime-500 px-1 italic"
+                      >
+                        {dietLabel}
+                      </span>
+                    ))}
+                </div>
               </div>
 
-              <div className="mb-0.5 flex justify-center gap-1">
-                {recipe.dishType &&
-                  recipe.dishType.map((diType, index) => (
-                    <span
-                      key={index}
-                      className="rounded-md bg-orange-500 px-0.5 italic"
-                    >
-                      {diType}
-                    </span>
-                  ))}
+              <div className="flex items-center justify-center gap-4">
+                <div>
+                  <div className="text-sm text-gray-500">
+                    {Math.round(Number(recipe.calories / recipe.yield))}
+                  </div>
+                  <div className="text-[0.6rem] uppercase">
+                    calories/serving
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">
+                    {Math.round(
+                      Number(
+                        recipe.totalDaily.ENERC_KCAL.quantity / recipe.yield,
+                      ),
+                    )}
+                    %
+                  </div>
+                  <div className="text-[0.6rem] uppercase">daily value</div>
+                </div>
+
+                <div>
+                  <div className="text-sm text-gray-500">{recipe.yield}</div>
+                  <div className="text-[0.6rem] uppercase">servings</div>
+                </div>
               </div>
 
-              <div className="mb-0.5 flex justify-center gap-1">
-                {recipe.mealType &&
-                  recipe.mealType.map((meType, index) => (
-                    <span
-                      key={index}
-                      className="rounded-md bg-cyan-500 px-0.5 italic"
-                    >
-                      {meType}
-                    </span>
-                  ))}
-              </div>
-
-              <div className="mb-0.5 flex justify-center gap-1">
-                {recipe.dietLabels &&
-                  recipe.dietLabels.map((dietLabel, index) => (
-                    <span
-                      key={index}
-                      className="rounded-md bg-lime-500 px-0.5 italic"
-                    >
-                      {dietLabel}
-                    </span>
-                  ))}
-              </div>
-
-              <div className="mt-2">
-                <p className="mb-2">See full instruction on </p>
+              <div className="mt-2 flex justify-center gap-2 text-xs">
+                <p className="mb-2">Full instruction</p> 👉
                 <a
                   href={recipe.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-md border border-gray-400 bg-gray-200 p-1 shadow-sm transition-all hover:bg-gray-100"
+                  className="bg-gradient-to-r from-lime-500 via-cyan-500 to-orange-500 bg-clip-text text-transparent transition-all duration-300 hover:from-yellow-500 hover:via-indigo-500 hover:to-lime-500"
                 >
                   {recipe.source}
                 </a>
@@ -121,12 +150,44 @@ function RecipeDetail() {
             </div>
           </div>
 
-          <div className="flex flex-row justify-between shadow-md">
+          <div className="grid grid-cols-2 gap-2 px-2 shadow-md">
             <div className="">
-              <p>Ingredients</p>
+              <p className="border-b-2 pb-2">Ingredients</p>
+              <div className="mb-4">
+                {recipe.ingredients &&
+                  recipe.ingredients.map((ingredient, index) => (
+                    <div key={index} className="mt-4 flex items-center gap-2">
+                      <img
+                        src={ingredient.image}
+                        alt={ingredient.text}
+                        className="h-6 w-6 rounded-full"
+                      />
+                      <span className="text-[0.7rem] text-gray-600">
+                        {ingredient.text}
+                      </span>
+                    </div>
+                  ))}
+              </div>
             </div>
             <div>
-              <p>Nutrition</p>
+              <p className="border-b-2 pb-2">Nutrition</p>
+              <div>
+                {recipe.digest &&
+                  recipe.digest.map((nutrient, index) => (
+                    <div key={index} className="mt-4 flex items-center gap-2">
+                      <div className="flex text-[0.7rem] text-gray-600">
+                        <div className="w-20">{nutrient.label}</div>
+                        <div className="w-10">
+                          {Math.round(Number(nutrient.total / recipe.yield))}
+                        </div>
+                        <div className="w-8">{nutrient.unit}</div>
+                        <div>
+                          {Math.round(Number(nutrient.daily / recipe.yield))}%
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>

@@ -112,8 +112,10 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
       );
       let data = await response.json();
 
-      console.log(data);
-      setRecipes(data.hits);
+      //console.log(data);
+      // only disply 10 recipes on the page
+      const sliceData = data.hits.slice(0, 10);
+      setRecipes(sliceData);
     } catch (err) {
       console.error(err.message);
     }

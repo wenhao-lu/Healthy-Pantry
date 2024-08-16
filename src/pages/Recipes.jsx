@@ -1,12 +1,12 @@
-import GetRandomRecipes from '../components/GetRandomRecipes';
+import GetLowfatRecipes from '../components/GetLowfatRecipes';
 
-function Recipes({ randomRecipes, setRandomRecipes }) {
+function Recipes({ lowfatRecipes, setLowfatRecipes }) {
   return (
     <div>
       Healthy Recipes 🥗
-      <GetRandomRecipes
-        randomRecipes={randomRecipes}
-        setRandomRecipes={setRandomRecipes}
+      <GetLowfatRecipes
+        lowfatRecipes={lowfatRecipes}
+        setLowfatRecipes={setLowfatRecipes}
       />
     </div>
   );

@@ -9,11 +9,11 @@ import {
   getStocks,
 } from '../services/apiStocks';
 import Spinner from '../ui/Spinner';
-import GetRandomRecipes from '../components/GetRandomRecipes';
+import GetLowfatRecipes from '../components/GetLowfatRecipes';
 import { Link } from 'react-router-dom';
 import RecipeDetail from './RecipeDetail';
 
-function StocksPage({ randomRecipes, setRandomRecipes }) {
+function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
   const [stockName, setStockName] = useState('');
   const [stockQuantity, setStockQuantity] = useState(0);
   const [stockUnit, setStockUnit] = useState('g');
@@ -321,9 +321,9 @@ function StocksPage({ randomRecipes, setRandomRecipes }) {
           </div>
         </div>
       ) : (
-        <GetRandomRecipes
-          randomRecipes={randomRecipes}
-          setRandomRecipes={setRandomRecipes}
+        <GetLowfatRecipes
+          lowfatRecipes={lowfatRecipes}
+          setLowfatRecipes={setLowfatRecipes}
         />
       )}
     </div>

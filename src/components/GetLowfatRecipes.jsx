@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 
-function GetRandomRecipes() {
-  const [randomRecipes, setRandomRecipes] = useState([]);
+function GetLowfatRecipes() {
+  const [lowfatRecipes, setLowfatRecipes] = useState([]);
 
   useEffect(function () {
-    async function fetchRandomRecipes() {
+    async function fetchLowfatRecipes() {
       try {
         // save random recipes in localstorage for 6 hours, to prevent frequent API calls
-        const storedData = localStorage.getItem('randomRecipes');
-        const storedTimestamp = localStorage.getItem('randomRecipesTimestamp');
+        const storedData = localStorage.getItem('lowfatRecipes');
+        const storedTimestamp = localStorage.getItem('lowfatRecipesTimestamp');
         const currentTime = Date.now();
 
         if (storedData && storedTimestamp) {
           const ageInHours = (currentTime - storedTimestamp) / 1000 / 60 / 60;
           if (ageInHours < 6) {
-            setRandomRecipes(JSON.parse(storedData));
+            setLowfatRecipes(JSON.parse(storedData));
             return;
           }
         }
@@ -26,17 +26,17 @@ function GetRandomRecipes() {
         );
         const data = await res.json();
         //console.log(data);
-        setRandomRecipes(data.hits);
+        setLowfatRecipes(data.hits);
 
         // save the fetched data to localStorage
-        localStorage.setItem('randomRecipes', JSON.stringify(data.hits));
-        localStorage.setItem('randomRecipesTimestamp', currentTime);
+        localStorage.setItem('lowfatRecipes', JSON.stringify(data.hits));
+        localStorage.setItem('lowfatRecipesTimestamp', currentTime);
       } catch (err) {
         console.error(err.message);
       }
     }
 
-    fetchRandomRecipes();
+    fetchLowfatRecipes();
   }, []);
   return (
     <div className="bg-green-50 px-4 py-4">
@@ -44,28 +44,28 @@ function GetRandomRecipes() {
         Popular Recipes 🔥:
       </h2>
       <div className="ml-auto mr-auto flex w-96 flex-row flex-wrap items-center justify-center gap-4">
-        {randomRecipes.map((randomRecipe, index) => (
+        {lowfatRecipes.map((lowfatRecipe, index) => (
           <div key={index} className="w-44 border-b-[0.1rem] border-gray-200">
-            <a href={randomRecipe.recipe.url} target="_blank">
+            <a href={lowfatRecipe.recipe.url} target="_blank">
               <img
-                src={randomRecipe.recipe.image}
-                alt={randomRecipe.recipe.label}
+                src={lowfatRecipe.recipe.image}
+                alt={lowfatRecipe.recipe.label}
                 className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
               />
               <p className="h-10 text-[0.8rem] font-semibold">
-                {randomRecipe.recipe.label}
+                {lowfatRecipe.recipe.label}
               </p>
             </a>
             <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
               <p className="capitalize">
                 <span className="text-green-600">
-                  {Math.round(Number(randomRecipe.recipe.calories))}
+                  {Math.round(Number(lowfatRecipe.recipe.calories))}
                 </span>{' '}
                 calories
               </p>
               <p className="capitalize">
                 <span className="text-green-600">
-                  {randomRecipe.recipe.ingredients.length}
+                  {lowfatRecipe.recipe.ingredients.length}
                 </span>{' '}
                 ingredients
               </p>
@@ -77,4 +77,4 @@ function GetRandomRecipes() {
   );
 }
 
-export default GetRandomRecipes;
+export default GetLowfatRecipes;

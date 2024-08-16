@@ -11,7 +11,7 @@ import {
 import Spinner from '../ui/Spinner';
 import GetLowfatRecipes from '../components/GetLowfatRecipes';
 import { Link } from 'react-router-dom';
-import RecipeDetail from './RecipeDetail';
+import truncateText from '../services/truncateText';
 
 function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
   const [stockName, setStockName] = useState('');
@@ -297,7 +297,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
                       className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
                     />
                     <p className="h-10 text-[0.8rem] font-semibold">
-                      {recipe.recipe.label}
+                      {truncateText(recipe.recipe.label, 40)}
                     </p>
                   </div>
 

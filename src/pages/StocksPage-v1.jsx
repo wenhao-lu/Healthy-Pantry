@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../ui/Button';
-import { APP_ID, APP_ID_1, APP_KEY, APP_KEY_1 } from '../services/apiAuth';
+import { APP_ID, APP_KEY } from '../services/apiAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   addStock,
@@ -121,58 +121,6 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
     }
   };
 
-  // fetch nutrition data when adding new food stocks, then save combined info to supabase
-  async function fetchStockNutrition(stockName, stockQuantity, stockUnit) {
-    try {
-      const res = await fetch(
-        `https://api.edamam.com/api/nutrition-data?app_id=${APP_ID_1}&app_key=${APP_KEY_1}&nutrition-type=cooking&ingr=${stockQuantity}%20${stockUnit}%20${stockName}`,
-      );
-      const data = await res.json();
-      console.log(data);
-
-      const nutritionData = {
-        calories: data?.totalNutrients?.ENERC_KCAL
-          ? Math.round(Number(data.totalNutrients.ENERC_KCAL.quantity) * 100) /
-              100 +
-            ' ' +
-            data.totalNutrients.ENERC_KCAL.unit
-          : '0 kcal',
-        protein: data?.totalNutrients?.PROCNT
-          ? Math.round(Number(data.totalNutrients.PROCNT.quantity) * 100) /
-              100 +
-            ' ' +
-            data.totalNutrients.PROCNT.unit
-          : '0 g',
-        carbohydrate: data?.totalNutrients?.CHOCDF
-          ? Math.round(Number(data.totalNutrients.CHOCDF.quantity) * 100) /
-              100 +
-            ' ' +
-            data.totalNutrients.CHOCDF.unit
-          : '0 g',
-        fat: data?.totalNutrients?.FAT
-          ? Math.round(Number(data.totalNutrients.FAT.quantity) * 100) / 100 +
-            ' ' +
-            data.totalNutrients.FAT.unit
-          : '0 g',
-        fiber: data?.totalNutrients?.FIBTG
-          ? Math.round(Number(data.totalNutrients.FIBTG.quantity) * 100) / 100 +
-            ' ' +
-            data.totalNutrients.FIBTG.unit
-          : '0 g',
-        sugar: data?.totalNutrients?.SUGAR
-          ? Math.round(Number(data.totalNutrients.SUGAR.quantity) * 100) / 100 +
-            ' ' +
-            data.totalNutrients.SUGAR.unit
-          : '0 g',
-      };
-
-      return nutritionData;
-    } catch (error) {
-      console.error('Error fetching stock nutrition:', error);
-      throw new Error('Failed to fetch stock nutrition');
-    }
-  }
-
   // handle form submittion, add new food stock
   function handleSubmit(e) {
     e.preventDefault();
@@ -186,23 +134,11 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
     };
 
     try {
-      fetchStockNutrition(stockName, stockQuantity, stockUnit)
-        .then((nutritionData) => {
-          const combinedData = {
-            ...newStock,
-            ...nutritionData,
-          };
+      addStockMutation.mutate(newStock);
 
-          // Save to your database
-          addStockMutation.mutate(combinedData);
-
-          setStockName('');
-          setStockQuantity(0);
-          setStockUnit('g');
-        })
-        .catch((error) => {
-          console.error('Error adding stock', error);
-        });
+      setStockName('');
+      setStockQuantity(0);
+      setStockUnit('g');
     } catch (error) {
       console.err('Error adding stock', error);
     }
@@ -253,7 +189,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
       </form>
 
       <div className="min-h-[30dvh] bg-indigo-50 px-4 py-4">
-        <div className="ml-auto mr-auto w-[28rem]">
+        <div className="ml-auto mr-auto w-96">
           <p className="pb-2 text-xl font-semibold">Food List 🧀</p>
 
           {isLoading ? (
@@ -265,54 +201,16 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
               {stocks.map((item) => (
                 <li
                   key={item.id}
-                  className="grid grid-cols-4 items-center justify-between border-b-2 border-gray-200"
+                  className="flex items-center justify-between border-b-2 border-gray-100 px-2"
                 >
-                  <div className="flex w-48 text-gray-700">
-                    <p className="capitalize">{item.stockName}</p>
+                  <div className="flex py-1 text-gray-700">
+                    <p className="w-16 capitalize">{item.stockName}</p>
                     <p className="pl-4 pr-1 text-gray-500">
                       {item.stockQuantity}
                     </p>
                     <p className="italic text-gray-500">{item.stockUnit}</p>
                   </div>
-
-                  <div className="col-span-2 flex flex-wrap items-center gap-2 py-1 text-[0.5rem]">
-                    <div className="flex">
-                      <p className="rounded-sm bg-gray-300 px-0.5">Calories</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">
-                        {item.calories}
-                      </p>
-                    </div>
-                    <div className="flex">
-                      <p className="rounded-sm bg-gray-300 px-0.5">Protein</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">
-                        {item.protein}
-                      </p>
-                    </div>
-                    <div className="flex">
-                      <p className="rounded-sm bg-gray-300 px-0.5">Cabs</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">
-                        {item.carbohydrate}
-                      </p>
-                    </div>
-                    <div className="flex">
-                      <p className="rounded-sm bg-gray-300 px-0.5">Fat</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">{item.fat}</p>
-                    </div>
-                    <div className="flex">
-                      <p className="rounded-sm bg-gray-300 px-0.5">Fiber</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">
-                        {item.fiber}
-                      </p>
-                    </div>
-                    <div className="flex">
-                      <p className="rounded-sm bg-gray-300 px-0.5">Sugar</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">
-                        {item.sugar}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 pl-3">
+                  <div className="flex items-center gap-6">
                     <button
                       className="opacity-60 hover:opacity-100"
                       onClick={() => handleEditStock(item.id)}

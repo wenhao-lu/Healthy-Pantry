@@ -134,36 +134,30 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
         calories: data?.totalNutrients?.ENERC_KCAL
           ? Math.round(Number(data.totalNutrients.ENERC_KCAL.quantity) * 100) /
               100 +
-            ' ' +
             data.totalNutrients.ENERC_KCAL.unit
-          : '0 kcal',
+          : '0kcal',
         protein: data?.totalNutrients?.PROCNT
           ? Math.round(Number(data.totalNutrients.PROCNT.quantity) * 100) /
               100 +
-            ' ' +
             data.totalNutrients.PROCNT.unit
-          : '0 g',
+          : '0g',
         carbohydrate: data?.totalNutrients?.CHOCDF
           ? Math.round(Number(data.totalNutrients.CHOCDF.quantity) * 100) /
               100 +
-            ' ' +
             data.totalNutrients.CHOCDF.unit
-          : '0 g',
+          : '0g',
         fat: data?.totalNutrients?.FAT
           ? Math.round(Number(data.totalNutrients.FAT.quantity) * 100) / 100 +
-            ' ' +
             data.totalNutrients.FAT.unit
-          : '0 g',
+          : '0g',
         fiber: data?.totalNutrients?.FIBTG
           ? Math.round(Number(data.totalNutrients.FIBTG.quantity) * 100) / 100 +
-            ' ' +
             data.totalNutrients.FIBTG.unit
-          : '0 g',
+          : '0g',
         sugar: data?.totalNutrients?.SUGAR
           ? Math.round(Number(data.totalNutrients.SUGAR.quantity) * 100) / 100 +
-            ' ' +
             data.totalNutrients.SUGAR.unit
-          : '0 g',
+          : '0g',
       };
 
       return nutritionData;

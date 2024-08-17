@@ -158,7 +158,12 @@ function RecipeDetail() {
 
           <div className="flex flex-col px-2 shadow-md">
             <div>
-              <p className="border-b-2 pb-2">Ingredients</p>
+              <div className="flex items-center justify-between border-b-2 pb-2">
+                <p>Ingredients</p>
+                <p className="text-sm opacity-60">
+                  ⏱️ {recipe.totalTime / 60} hrs
+                </p>
+              </div>
               <div className="mb-4">
                 {recipe.ingredients &&
                   recipe.ingredients.map((ingredient, index) => (
@@ -193,8 +198,10 @@ function RecipeDetail() {
                   <div className="grid grid-cols-2 gap-x-4">
                     {recipe.digest.map((nutrient, index) => (
                       <div key={index} className="mt-2 flex items-center gap-2">
-                        <div className="flex text-[0.7rem] text-gray-600">
-                          <div className="w-20">{nutrient.label}</div>
+                        <div className="flex items-center text-[0.7rem] text-gray-500">
+                          <div className="w-24 text-gray-800">
+                            {nutrient.label}
+                          </div>
                           <div className="w-8">
                             {Math.round(Number(nutrient.total / recipe.yield))}
                           </div>

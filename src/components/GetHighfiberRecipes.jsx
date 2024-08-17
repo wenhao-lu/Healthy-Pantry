@@ -8,7 +8,7 @@ function GetHighfiberRecipes() {
   useEffect(function () {
     async function fetchHighfiberRecipes() {
       try {
-        // save random recipes in localstorage for 6 hours, to prevent frequent API calls
+        /* save random recipes in localstorage for 6 hours, to prevent frequent API calls */
 
         const storedData = localStorage.getItem('highfiberRecipes');
         const storedTimestamp = localStorage.getItem(
@@ -26,7 +26,7 @@ function GetHighfiberRecipes() {
 
         // fetch new random recipes
         const res = await fetch(
-          `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}&from=1&to=3&diet=high-fiber&random=true`,
+          `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}&from=1&to=3&diet=high-fiber&mealType=Dinner&random=true`,
         );
         const data = await res.json();
         //console.log(data);

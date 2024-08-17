@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
+import truncateText from '../services/truncateText';
 
 function GetLowfatRecipes() {
   const [lowfatRecipes, setLowfatRecipes] = useState([]);
@@ -8,6 +9,7 @@ function GetLowfatRecipes() {
     async function fetchLowfatRecipes() {
       try {
         // save random recipes in localstorage for 6 hours, to prevent frequent API calls
+
         const storedData = localStorage.getItem('lowfatRecipes');
         const storedTimestamp = localStorage.getItem('lowfatRecipesTimestamp');
         const currentTime = Date.now();
@@ -22,7 +24,7 @@ function GetLowfatRecipes() {
 
         // fetch new random recipes
         const res = await fetch(
-          `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}&diet=low-fat&random=true`,
+          `https://api.edamam.com/api/recipes/v2?type=public&app_id=${APP_ID}&app_key=${APP_KEY}&diet=low-fat&mealType=Dinner&random=true`,
         );
         const data = await res.json();
         //console.log(data);
@@ -30,6 +32,7 @@ function GetLowfatRecipes() {
         setLowfatRecipes(sliceData);
 
         // save the fetched data to localStorage
+
         localStorage.setItem('lowfatRecipes', JSON.stringify(data.hits));
         localStorage.setItem('lowfatRecipesTimestamp', currentTime);
       } catch (err) {
@@ -54,7 +57,7 @@ function GetLowfatRecipes() {
                 className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
               />
               <p className="h-10 text-[0.8rem] font-semibold">
-                {lowfatRecipe.recipe.label}
+                {truncateText(lowfatRecipe.recipe.label, 42)}
               </p>
             </a>
             <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">

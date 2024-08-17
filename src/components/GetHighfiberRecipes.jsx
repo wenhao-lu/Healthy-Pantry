@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 import truncateText from '../services/truncateText';
+import { Link } from 'react-router-dom';
 
 function GetHighfiberRecipes() {
   const [highfiberRecipes, setHighfiberRecipes] = useState([]);
@@ -52,7 +53,9 @@ function GetHighfiberRecipes() {
       <div className="ml-auto mr-auto flex w-96 flex-row flex-wrap items-center justify-center gap-4">
         {highfiberRecipes.map((highfiberRecipe, index) => (
           <div key={index} className="w-44 border-b-[0.1rem] border-gray-200">
-            <a href={highfiberRecipe.recipe.url} target="_blank">
+            <Link
+              to={`/recipes/${highfiberRecipe.recipe.uri.split('_').pop()}`}
+            >
               <img
                 src={highfiberRecipe.recipe.image}
                 alt={highfiberRecipe.recipe.label}
@@ -61,21 +64,22 @@ function GetHighfiberRecipes() {
               <p className="h-10 text-[0.8rem] font-semibold">
                 {truncateText(highfiberRecipe.recipe.label, 42)}
               </p>
-            </a>
-            <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
-              <p className="capitalize">
-                <span className="text-green-600">
-                  {Math.round(Number(highfiberRecipe.recipe.calories))}
-                </span>{' '}
-                calories
-              </p>
-              <p className="capitalize">
-                <span className="text-green-600">
-                  {highfiberRecipe.recipe.ingredients.length}
-                </span>{' '}
-                ingredients
-              </p>
-            </div>
+
+              <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
+                <p className="capitalize">
+                  <span className="text-green-600">
+                    {Math.round(Number(highfiberRecipe.recipe.calories))}
+                  </span>{' '}
+                  calories
+                </p>
+                <p className="capitalize">
+                  <span className="text-green-600">
+                    {highfiberRecipe.recipe.ingredients.length}
+                  </span>{' '}
+                  ingredients
+                </p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 import truncateText from '../services/truncateText';
+import { Link } from 'react-router-dom';
 
 function GetLowfatRecipes() {
   const [lowfatRecipes, setLowfatRecipes] = useState([]);
@@ -50,30 +51,31 @@ function GetLowfatRecipes() {
       <div className="ml-auto mr-auto flex w-96 flex-row flex-wrap items-center justify-center gap-4">
         {lowfatRecipes.map((lowfatRecipe, index) => (
           <div key={index} className="w-44 border-b-[0.1rem] border-gray-200">
-            <a href={lowfatRecipe.recipe.url} target="_blank">
+            <Link to={`/recipes/${lowfatRecipe.recipe.uri.split('_').pop()}`}>
               <img
                 src={lowfatRecipe.recipe.image}
                 alt={lowfatRecipe.recipe.label}
                 className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
               />
               <p className="h-10 text-[0.8rem] font-semibold">
-                {truncateText(lowfatRecipe.recipe.label, 42)}
+                {truncateText(lowfatRecipe.recipe.label, 40)}
               </p>
-            </a>
-            <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
-              <p className="capitalize">
-                <span className="text-green-600">
-                  {Math.round(Number(lowfatRecipe.recipe.calories))}
-                </span>{' '}
-                calories
-              </p>
-              <p className="capitalize">
-                <span className="text-green-600">
-                  {lowfatRecipe.recipe.ingredients.length}
-                </span>{' '}
-                ingredients
-              </p>
-            </div>
+
+              <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
+                <p className="capitalize">
+                  <span className="text-green-600">
+                    {Math.round(Number(lowfatRecipe.recipe.calories))}
+                  </span>{' '}
+                  calories
+                </p>
+                <p className="capitalize">
+                  <span className="text-green-600">
+                    {lowfatRecipe.recipe.ingredients.length}
+                  </span>{' '}
+                  ingredients
+                </p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>

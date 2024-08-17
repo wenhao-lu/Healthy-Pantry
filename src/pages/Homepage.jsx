@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Homepage() {
   return (
     <div className="mt-[26vh]">
@@ -10,12 +12,12 @@ function Homepage() {
         <h1 className="mb-10 pb-6 text-5xl font-normal tracking-tight text-green-50">
           Everything Healthy
         </h1>
-        <a
-          href="/app/recipes"
+        <Link
+          to="/recipes"
           className="bg-green-200 px-8 py-6 text-lg font-semibold text-green-800 transition-all hover:bg-green-500"
         >
           Explore Recipes
-        </a>
+        </Link>
       </div>
     </div>
   );

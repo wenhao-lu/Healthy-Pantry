@@ -187,7 +187,6 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
             ...nutritionData,
           };
 
-          // Save to your database
           addStockMutation.mutate(combinedData);
 
           setStockName('');

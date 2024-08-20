@@ -13,7 +13,7 @@ function DashboardLayout() {
         <div className="hidden sm:block">
           <Sidebar />
         </div>
-        <main className="grow overflow-scroll px-6 pt-6">
+        <main className="grow overflow-scroll px-2 pt-4">
           <Outlet />
         </main>
       </div>

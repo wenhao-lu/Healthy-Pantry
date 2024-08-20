@@ -1,4 +1,22 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getRecipes } from '../services/apiRecipes';
+import Spinner from '../ui/Spinner';
+
 function RecipeList() {
+  const queryClient = useQueryClient();
+
+  const {
+    data: recipes,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['recipes'],
+    queryFn: getRecipes,
+  });
+
+  if (isLoading) return <Spinner />;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className="flex w-full items-center justify-between">
       <div
@@ -7,35 +25,44 @@ function RecipeList() {
       >
         <header
           role="row"
-          className="grid w-full grid-cols-5 items-center justify-center gap-6 px-4 pb-2 pt-4 text-[0.6rem] font-bold uppercase tracking-wide text-gray-600"
+          className="grid w-full grid-cols-7 items-center justify-center gap-6 px-4 pb-2 pt-4 text-center text-[0.6rem] font-bold uppercase tracking-wide text-gray-600"
         >
-          <div>Photo</div>
-          <div>Recipe</div>
-          <div>Ingredients</div>
-          <div>Styles</div>
+          <div>Image</div>
+          <div className="col-span-2">Recipe</div>
+          <div>Style</div>
+          <div>Type</div>
+          <div>Calories</div>
           <div>Operation</div>
         </header>
         <section>
-          <div
-            role="row"
-            className="border-b-1 grid grid-cols-5 items-center justify-center gap-6 border-gray-100 px-4 py-2 font-[600] text-gray-600"
-          >
-            <div>Image</div>
-            <div>Chicken Tikka Masala</div>
-            <div>Chicken, Garlic Cloves, Onion, Yogurt</div>
-            <div>Mexican</div>
-            <div>CRUD</div>
-          </div>
+          {recipes.map((recipe) => (
+            <div
+              key={recipe.id}
+              role="row"
+              className="border-b-1 grid grid-cols-7 items-center justify-center gap-6 border-gray-100 px-4 py-2 text-center text-[0.7rem] font-[600] text-gray-600"
+            >
+              <img
+                src={recipe.recipeImage}
+                alt={recipe.recipeName}
+                className="mx-auto my-auto w-16 rounded-lg"
+              />
+              <div className="col-span-2">{recipe.recipeName}</div>
+              <div>{recipe.recipeStyle}</div>
+              <div>{recipe.recipeType}</div>
+              <div>{recipe.recipeCabs}</div>
+              <div>CRUD</div>
+            </div>
+          ))}
 
           <div
             role="row"
-            className="border-b-1 grid grid-cols-5 items-center justify-center gap-6 whitespace-normal border-gray-100 px-4 py-2 font-[600] text-gray-600"
+            className="border-b-1 grid grid-cols-7 items-center justify-center gap-6 whitespace-normal border-gray-100 px-4 py-2 text-center font-[600] text-gray-600"
           >
-            <div>Image</div>
-            <div>Spicy Tuna Roll</div>
-            <div>Tuna, Rice, Avocado, Soy Sauce</div>
-            <div>Japanese</div>
-            <div>CRUD</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </section>
         <footer></footer>

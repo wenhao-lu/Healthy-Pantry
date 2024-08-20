@@ -1,6 +1,20 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiOutlineBriefcase } from 'react-icons/hi2';
+import { getStocks } from '../services/apiStocks';
+import Spinner from '../ui/Spinner';
 
 function Dashboard() {
+  const queryClient = useQueryClient();
+
+  const {
+    data: stocks,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['stocks'],
+    queryFn: getStocks,
+  });
+
   return (
     <>
       <div className="text-l pb-5 font-semibold leading-5">Dashboard</div>
@@ -13,9 +27,17 @@ function Dashboard() {
               </div>
               <div>
                 <h5 className="mb-[-0.4rem] self-end text-[0.5rem] font-semibold uppercase tracking-wide text-gray-500">
-                  title
+                  Stocks
                 </h5>
-                <p className="text-sm">stat</p>
+                <p className="text-sm">
+                  {isLoading ? (
+                    <Spinner />
+                  ) : error ? (
+                    <div>Error: {error.message}</div>
+                  ) : (
+                    stocks.length
+                  )}
+                </p>
               </div>
             </div>
           </div>
@@ -27,7 +49,7 @@ function Dashboard() {
               </div>
               <div>
                 <h5 className="mb-[-0.4rem] self-end text-[0.5rem] font-semibold uppercase tracking-wide text-gray-500">
-                  title
+                  Recipes
                 </h5>
                 <p className="text-sm">stat</p>
               </div>

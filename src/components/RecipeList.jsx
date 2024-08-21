@@ -1,5 +1,5 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRecipes } from '../services/apiRecipes';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { deleteRecipe, getRecipes } from '../services/apiRecipes';
 import Spinner from '../ui/Spinner';
 
 function RecipeList() {
@@ -14,6 +14,19 @@ function RecipeList() {
     queryFn: getRecipes,
   });
 
+  const deleteRecipeMutation = useMutation({
+    mutationFn: deleteRecipe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['recipes'],
+      });
+    },
+  });
+
+  function handleDeleteClick(recipeUri) {
+    deleteRecipeMutation.mutate(recipeUri);
+  }
+
   if (isLoading) return <Spinner />;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -25,21 +38,21 @@ function RecipeList() {
       >
         <header
           role="row"
-          className="grid w-full grid-cols-7 items-center justify-center gap-6 px-4 pb-2 pt-4 text-center text-[0.6rem] font-bold uppercase tracking-wide text-gray-600"
+          className="grid w-full grid-cols-7 items-center justify-center px-2 pb-2 pt-4 text-center text-[0.6rem] font-bold uppercase text-gray-600"
         >
           <div>Image</div>
           <div className="col-span-2">Recipe</div>
           <div>Style</div>
           <div>Type</div>
-          <div>Calories</div>
-          <div>Operation</div>
+          <div>Cabs</div>
+          <div></div>
         </header>
         <section>
           {recipes.map((recipe) => (
             <div
               key={recipe.id}
               role="row"
-              className="border-b-1 grid grid-cols-7 items-center justify-center gap-6 border-gray-100 px-4 py-2 text-center text-[0.7rem] font-[600] text-gray-600"
+              className="border-b-1 grid grid-cols-7 items-center justify-center gap-2 border-gray-100 px-3 py-2 text-center text-[0.6rem] font-[600] text-gray-600"
             >
               <img
                 src={recipe.recipeImage}
@@ -47,10 +60,15 @@ function RecipeList() {
                 className="mx-auto my-auto w-16 rounded-lg"
               />
               <div className="col-span-2">{recipe.recipeName}</div>
-              <div>{recipe.recipeStyle}</div>
-              <div>{recipe.recipeType}</div>
+              <div className="break-words">{recipe.recipeStyle}</div>
+              <div className="break-words">{recipe.recipeType}</div>
               <div>{recipe.recipeCabs}</div>
-              <div>CRUD</div>
+              <button
+                className="opacity-60 hover:opacity-100"
+                onClick={() => handleDeleteClick(recipe.recipeUri)}
+              >
+                ✖️
+              </button>
             </div>
           ))}
 

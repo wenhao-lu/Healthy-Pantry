@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
 import truncateText from '../services/truncateText';
 import { Link } from 'react-router-dom';
+import LikeButton from '../ui/LikeButton';
 
 function GetHighfiberRecipes() {
   const [highfiberRecipes, setHighfiberRecipes] = useState([]);
@@ -61,25 +62,35 @@ function GetHighfiberRecipes() {
                 alt={highfiberRecipe.recipe.label}
                 className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
               />
-              <p className="h-10 text-[0.8rem] font-semibold">
-                {truncateText(highfiberRecipe.recipe.label, 42)}
-              </p>
-
-              <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
-                <p className="capitalize">
-                  <span className="text-green-600">
-                    {Math.round(Number(highfiberRecipe.recipe.calories))}
-                  </span>{' '}
-                  calories
-                </p>
-                <p className="capitalize">
-                  <span className="text-green-600">
-                    {highfiberRecipe.recipe.ingredients.length}
-                  </span>{' '}
-                  ingredients
-                </p>
-              </div>
             </Link>
+            <div className="flex items-center justify-between">
+              <p className="h-10 text-[0.8rem] font-semibold">
+                {truncateText(highfiberRecipe.recipe.label, 40)}
+              </p>
+              <LikeButton
+                recipeName={highfiberRecipe.recipe.label}
+                recipeStyle={highfiberRecipe.recipe.cuisineType[0]}
+                recipeType={highfiberRecipe.recipe.mealType[0]}
+                recipeCabs={Math.round(Number(highfiberRecipe.recipe.calories))}
+                recipeImage={highfiberRecipe.recipe.image}
+                recipeUri={highfiberRecipe.recipe.uri.split('_').pop()}
+              />
+            </div>
+
+            <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
+              <p className="capitalize">
+                <span className="text-green-600">
+                  {Math.round(Number(highfiberRecipe.recipe.calories))}
+                </span>{' '}
+                calories
+              </p>
+              <p className="capitalize">
+                <span className="text-green-600">
+                  {highfiberRecipe.recipe.ingredients.length}
+                </span>{' '}
+                ingredients
+              </p>
+            </div>
           </div>
         ))}
       </div>

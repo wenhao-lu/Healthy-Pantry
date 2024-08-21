@@ -19,13 +19,13 @@ function MobileNav() {
         <p>User</p>
       </div>
       <nav>
-        <ul className="flex items-center justify-around gap-6">
+        <ul className="flex items-center justify-around gap-4">
           <li>
             <Link
               to="/dashboard"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
-              <MdQueryStats className="text-xl text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
+              <MdQueryStats className="text-[1.2rem] text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
             </Link>
           </li>
 
@@ -34,7 +34,7 @@ function MobileNav() {
               to="/dashboard/stocklist"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
-              <LuBanana className="text-xl text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
+              <LuBanana className="text-[1.2rem] text-gray-400 transition-all visited:bg-blue-400 hover:text-gray-500 active:bg-green-900 active:text-green-500" />
             </Link>
           </li>
           <li>
@@ -42,7 +42,7 @@ function MobileNav() {
               to="/dashboard/recipelist"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
-              <PiForkKnife className="text-xl text-gray-400 transition-all hover:text-gray-500" />
+              <PiForkKnife className="text-[1.2rem] text-gray-400 transition-all hover:text-gray-500" />
             </Link>
           </li>
           <li>
@@ -50,7 +50,7 @@ function MobileNav() {
               to="/dashboard/account"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
-              <HiOutlineUser className="text-xl text-gray-400 transition-all hover:text-gray-500" />
+              <HiOutlineUser className="text-[1.2rem] text-gray-400 transition-all hover:text-gray-500" />
             </Link>
           </li>
           <li>
@@ -58,7 +58,7 @@ function MobileNav() {
               to="/login"
               className="flex rounded-sm px-1 py-2 hover:bg-gray-100"
             >
-              <FaArrowRightFromBracket className="text-xl text-gray-400 transition-all hover:text-gray-500" />
+              <FaArrowRightFromBracket className="text-[1.2rem] text-gray-400 transition-all hover:text-gray-500" />
             </Link>
           </li>
         </ul>

@@ -16,8 +16,9 @@ function RecipeDetail() {
         const currentTime = Date.now();
 
         if (storedData && storedTimestamp) {
-          const ageInHours = (currentTime - storedTimestamp) / 1000 / 60 / 60;
-          if (ageInHours < 6) {
+          const ageInHours =
+            (currentTime - storedTimestamp) / 1000 / 60 / 60 / 6;
+          if (ageInHours < 1) {
             setRecipe(JSON.parse(storedData));
             return;
           }

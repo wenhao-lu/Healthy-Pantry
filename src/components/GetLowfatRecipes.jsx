@@ -10,15 +10,16 @@ function GetLowfatRecipes() {
   useEffect(function () {
     async function fetchLowfatRecipes() {
       try {
-        // save random recipes in localstorage for 6 hours, to prevent frequent API calls
+        // save random recipes in localstorage, to prevent frequent API calls
 
         const storedData = localStorage.getItem('lowfatRecipes');
         const storedTimestamp = localStorage.getItem('lowfatRecipesTimestamp');
         const currentTime = Date.now();
 
         if (storedData && storedTimestamp) {
-          const ageInHours = (currentTime - storedTimestamp) / 1000 / 60 / 60;
-          if (ageInHours < 6) {
+          const ageInHours =
+            (currentTime - storedTimestamp) / 1000 / 60 / 60 / 6;
+          if (ageInHours < 1) {
             setLowfatRecipes(JSON.parse(storedData));
             return;
           }
@@ -67,7 +68,14 @@ function GetLowfatRecipes() {
               <p className="h-10 text-[0.8rem] font-semibold">
                 {truncateText(lowfatRecipe.recipe.label, 40)}
               </p>
-              <LikeButton />
+              <LikeButton
+                recipeName={lowfatRecipe.recipe.label}
+                recipeStyle={lowfatRecipe.recipe.cuisineType[0]}
+                recipeType={lowfatRecipe.recipe.mealType[0]}
+                recipeCabs={Math.round(Number(lowfatRecipe.recipe.calories))}
+                recipeImage={lowfatRecipe.recipe.image}
+                recipeUri={lowfatRecipe.recipe.uri.split('_').pop()}
+              />
             </div>
 
             <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">

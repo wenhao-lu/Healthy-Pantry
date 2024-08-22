@@ -35,3 +35,17 @@ export async function deleteRecipe(recipeUri) {
 
   return data;
 }
+
+export async function editRecipe(recipeUri, updatedRecipe) {
+  const { data, error } = await supabase
+    .from('recipes')
+    .update(updatedRecipe)
+    .eq('recipeUri', recipeUri);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Recipe could not be updated');
+  }
+
+  return data;
+}

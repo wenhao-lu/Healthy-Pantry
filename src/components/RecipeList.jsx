@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteRecipe, getRecipes } from '../services/apiRecipes';
 import Spinner from '../ui/Spinner';
+import { Link } from 'react-router-dom';
 
 function RecipeList() {
   const queryClient = useQueryClient();
@@ -54,11 +55,13 @@ function RecipeList() {
               role="row"
               className="border-b-1 grid grid-cols-7 items-center justify-center gap-2 border-gray-100 px-3 py-2 text-center text-[0.6rem] font-[600] text-gray-600"
             >
-              <img
-                src={recipe.recipeImage}
-                alt={recipe.recipeName}
-                className="mx-auto my-auto w-16 rounded-lg"
-              />
+              <Link to={`/recipes/${recipe.recipeUri.split('_').pop()}`}>
+                <img
+                  src={recipe.recipeImage}
+                  alt={recipe.recipeName}
+                  className="mx-auto my-auto w-16 rounded-lg"
+                />
+              </Link>
               <div className="col-span-2 font-semibold">
                 {recipe.recipeName}
               </div>

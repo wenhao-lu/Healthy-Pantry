@@ -12,6 +12,7 @@ import Spinner from '../ui/Spinner';
 import GetLowfatRecipes from '../components/GetLowfatRecipes';
 import { Link } from 'react-router-dom';
 import truncateText from '../services/truncateText';
+import LikeButton from '../ui/LikeButton';
 
 function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
   const [stockName, setStockName] = useState('');
@@ -387,32 +388,40 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
                 className="w-44 border-b-[0.1rem] border-gray-200"
               >
                 <Link to={`/recipes/${recipe.recipe.uri.split('_').pop()}`}>
-                  <div>
-                    <img
-                      src={recipe.recipe.image}
-                      alt={recipe.recipe.label}
-                      className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
-                    />
-                    <p className="h-10 text-[0.8rem] font-semibold">
-                      {truncateText(recipe.recipe.label, 40)}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
-                    <p className="capitalize">
-                      <span className="text-green-600">
-                        {Math.round(Number(recipe.recipe.calories))}
-                      </span>{' '}
-                      calories
-                    </p>
-                    <p className="capitalize">
-                      <span className="text-green-600">
-                        {recipe.recipe.ingredients.length}
-                      </span>{' '}
-                      ingredients
-                    </p>
-                  </div>
+                  <img
+                    src={recipe.recipe.image}
+                    alt={recipe.recipe.label}
+                    className="rounded-md border border-gray-200 shadow-sm transition-all hover:opacity-60"
+                  />
                 </Link>
+                <div className="flex items-center justify-between">
+                  <p className="h-10 text-[0.8rem] font-semibold">
+                    {truncateText(recipe.recipe.label, 40)}
+                  </p>
+                  <LikeButton
+                    recipeName={recipe.recipe.label}
+                    recipeStyle={recipe.recipe.cuisineType[0]}
+                    recipeType={recipe.recipe.mealType[0]}
+                    recipeCabs={Math.round(Number(recipe.recipe.calories))}
+                    recipeImage={recipe.recipe.image}
+                    recipeUri={recipe.recipe.uri.split('_').pop()}
+                  />
+                </div>
+
+                <div className="flex flex-row items-center justify-between gap-2 pb-2 text-xs italic">
+                  <p className="capitalize">
+                    <span className="text-green-600">
+                      {Math.round(Number(recipe.recipe.calories))}
+                    </span>{' '}
+                    calories
+                  </p>
+                  <p className="capitalize">
+                    <span className="text-green-600">
+                      {recipe.recipe.ingredients.length}
+                    </span>{' '}
+                    ingredients
+                  </p>
+                </div>
               </div>
             ))}
           </div>

@@ -1,7 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5';
-import { addRecipe, deleteRecipe } from '../services/apiRecipes';
+import {
+  addRecipe,
+  deleteRecipe,
+  getRecipeByUri,
+} from '../services/apiRecipes';
 
 function LikeButton({
   recipeName,
@@ -30,7 +34,7 @@ function LikeButton({
     },
   });
 
-  function handleLikeClick() {
+  async function handleLikeClick() {
     const newRecipe = {
       recipeName,
       recipeStyle,
@@ -44,9 +48,16 @@ function LikeButton({
       deleteRecipeMutation.mutate(recipeUri);
     } else {
       try {
-        addRecipeMutation.mutate(newRecipe);
+        // Check if a recipe with the same recipeUri already exists
+        const existingRecipe = await getRecipeByUri(recipeUri);
+
+        if (existingRecipe) {
+          console.log('Recipe already exists in the database.');
+        } else {
+          addRecipeMutation.mutate(newRecipe);
+        }
       } catch (error) {
-        console.err('Error adding recipe', error);
+        console.error('Error checking or adding recipe', error);
       }
     }
     setIsLiked(!isLiked);
@@ -61,7 +72,7 @@ function LikeButton({
         />
       ) : (
         <IoHeartOutline
-          className="w-8 cursor-pointer"
+          className="w-8 cursor-pointer hover:text-red-500"
           onClick={handleLikeClick}
         />
       )}

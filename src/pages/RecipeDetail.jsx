@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { APP_ID, APP_KEY } from '../services/apiAuth';
+
+import LikeButton from '../ui/LikeButton';
 
 function RecipeDetail() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchRecipe() {
       try {
         // save selected recipe in localstorage to prevent frequent API calls
-        // styling purpose
+        // debug purpose
+        /*
         const storedData = localStorage.getItem('selectedRecipe');
         const storedTimestamp = localStorage.getItem('selectedRecipeTimestamp');
         const currentTime = Date.now();
@@ -23,6 +27,7 @@ function RecipeDetail() {
             return;
           }
         }
+        */
 
         const res = await fetch(
           `https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`,
@@ -32,8 +37,10 @@ function RecipeDetail() {
         setRecipe(data.recipe);
 
         // save the fetched data to localStorage
+        /*
         localStorage.setItem('selectedRecipe', JSON.stringify(data.recipe));
         localStorage.setItem('selectedRecipeTimestamp', currentTime);
+        */
       } catch (err) {
         console.error(err.message);
       }
@@ -44,6 +51,12 @@ function RecipeDetail() {
 
   return (
     <>
+      <div
+        className="pl-6 text-[1.3rem] opacity-70 hover:cursor-pointer hover:opacity-100"
+        onClick={() => navigate(-1)}
+      >
+        🔙
+      </div>
       {recipe && (
         <div className="flex flex-col gap-4 rounded-sm p-2">
           <div className="flex min-w-[26rem] justify-around px-4 py-4 shadow-xl">
@@ -142,14 +155,22 @@ function RecipeDetail() {
                 </div>
               </div>
 
-              <div className="flex justify-center gap-2 text-xs">
-                <p className="mb-2">Full instruction</p>
-                👉
+              <div className="flex items-center justify-center gap-2">
+                <LikeButton
+                  recipeName={recipe.label}
+                  recipeStyle={recipe.cuisineType[0]}
+                  recipeType={recipe.mealType[0]}
+                  recipeCabs={Math.round(Number(recipe.calories))}
+                  recipeImage={recipe.image}
+                  recipeUri={recipe.uri.split('_').pop()}
+                />
+                <p className="text-xs">Full instruction at</p>
+
                 <a
                   href={recipe.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-gradient-to-r from-lime-500 via-cyan-500 to-orange-500 bg-clip-text text-transparent transition-all duration-300 hover:from-yellow-500 hover:via-indigo-500 hover:to-lime-500"
+                  className="bg-gradient-to-r from-lime-500 via-cyan-500 to-orange-500 bg-clip-text text-xs text-transparent transition-all duration-300 hover:from-yellow-500 hover:via-indigo-500 hover:to-lime-500"
                 >
                   {recipe.source}
                 </a>

@@ -49,3 +49,19 @@ export async function editRecipe(recipeUri, updatedRecipe) {
 
   return data;
 }
+
+export async function getRecipeByUri(recipeUri) {
+  let { data, error } = await supabase
+    .from('recipes')
+    .select('*')
+    .eq('recipeUri', recipeUri)
+    .maybeSingle();
+  //console.log(data);
+
+  if (error && error.code !== 'PGRST116') {
+    console.error(error);
+    throw new Error('Error fetching recipe by URI');
+  }
+
+  return data;
+}

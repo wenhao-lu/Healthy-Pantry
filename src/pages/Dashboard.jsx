@@ -2,17 +2,27 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { HiOutlineBriefcase } from 'react-icons/hi2';
 import { getStocks } from '../services/apiStocks';
 import Spinner from '../ui/Spinner';
+import { getRecipes } from '../services/apiRecipes';
 
 function Dashboard() {
   const queryClient = useQueryClient();
 
   const {
     data: stocks,
-    isLoading,
-    error,
+    isLoading: loadingStocks,
+    error: errorStocks,
   } = useQuery({
     queryKey: ['stocks'],
     queryFn: getStocks,
+  });
+
+  const {
+    data: recipes,
+    isLoading: loadingRecipes,
+    error: errorRecipes,
+  } = useQuery({
+    queryKey: ['recipes'],
+    queryFn: getRecipes,
   });
 
   return (
@@ -29,15 +39,15 @@ function Dashboard() {
                 <h5 className="mb-[-0.4rem] self-end text-[0.5rem] font-semibold uppercase tracking-wide text-gray-500">
                   Stocks
                 </h5>
-                <p className="text-sm">
-                  {isLoading ? (
+                <div className="text-sm">
+                  {loadingStocks ? (
                     <Spinner />
-                  ) : error ? (
-                    <div>Error: {error.message}</div>
+                  ) : errorStocks ? (
+                    <div>Error: {errorStocks.message}</div>
                   ) : (
                     stocks.length
                   )}
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -51,7 +61,15 @@ function Dashboard() {
                 <h5 className="mb-[-0.4rem] self-end text-[0.5rem] font-semibold uppercase tracking-wide text-gray-500">
                   Recipes
                 </h5>
-                <p className="text-sm">stat</p>
+                <div className="text-sm">
+                  {loadingRecipes ? (
+                    <Spinner />
+                  ) : errorRecipes ? (
+                    <div>Error: {errorRecipes.message}</div>
+                  ) : (
+                    recipes.length
+                  )}
+                </div>
               </div>
             </div>
           </div>

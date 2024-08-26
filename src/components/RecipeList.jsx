@@ -59,10 +59,16 @@ function RecipeList() {
                 alt={recipe.recipeName}
                 className="mx-auto my-auto w-16 rounded-lg"
               />
-              <div className="col-span-2">{recipe.recipeName}</div>
-              <div className="break-words">{recipe.recipeStyle}</div>
-              <div className="break-words">{recipe.recipeType}</div>
-              <div>{recipe.recipeCabs}</div>
+              <div className="col-span-2 font-semibold">
+                {recipe.recipeName}
+              </div>
+              <div className="break-words text-[0.55rem] italic">
+                {recipe.recipeStyle}
+              </div>
+              <div className="break-words text-[0.55rem] italic">
+                {recipe.recipeType}
+              </div>
+              <div className="text-[0.55rem] italic">{recipe.recipeCabs}</div>
               <button
                 className="opacity-60 hover:opacity-100"
                 onClick={() => handleDeleteClick(recipe.recipeUri)}

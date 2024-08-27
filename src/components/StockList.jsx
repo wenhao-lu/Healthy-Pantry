@@ -63,12 +63,20 @@ function StockList() {
               </div>
               <div className="text-[0.55rem] italic">{stock.protein}</div>
               <div className="text-[0.55rem] italic">{stock.carbohydrate}</div>
-              <button
-                className="opacity-60 hover:opacity-100"
-                onClick={() => handleDeleteClick(stock.id)}
-              >
-                ✖️
-              </button>
+              <div>
+                <button
+                  className="px-1 opacity-60 hover:opacity-100"
+                  onClick={() => handleDeleteClick(stock.id)}
+                >
+                  ✖️
+                </button>
+                <button
+                  className="px-1 text-[0.8rem] opacity-70 hover:opacity-100"
+                  onClick={() => handleSearchClick(stock.stockName)}
+                >
+                  🧑‍🍳
+                </button>
+              </div>
             </div>
           ))}
         </section>

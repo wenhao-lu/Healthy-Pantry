@@ -62,7 +62,7 @@ function StockList() {
                 {stock.calories}
               </div>
               <div className="text-[0.55rem] italic">{stock.protein}</div>
-              <div className="text-[0.55rem] italic">{stock.carbohydrate}</div>
+              <div className="text-[0.50rem] italic">{stock.carbohydrate}</div>
               <div>
                 <button
                   className="px-1 opacity-60 hover:opacity-100"

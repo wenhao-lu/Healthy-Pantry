@@ -74,6 +74,7 @@ function GetHighfiberRecipes() {
                 recipeCabs={Math.round(Number(highfiberRecipe.recipe.calories))}
                 recipeImage={highfiberRecipe.recipe.image}
                 recipeUri={highfiberRecipe.recipe.uri.split('_').pop()}
+                recipeServe={highfiberRecipe.recipe.yield}
               />
             </div>
 

@@ -41,9 +41,16 @@ function StockList() {
         >
           <div>Name</div>
           <div>Quantity</div>
-          <div className="col-span-2">Calories</div>
-          <div>Protein</div>
-          <div>Cabs</div>
+          <div className="col-span-4 flex flex-col items-center">
+            <div>Nutrition / 100g</div>
+
+            <div className="grid w-full grid-cols-4 items-center">
+              <div className="col-span-2">Calories</div>
+              <div>Protein</div>
+              <div>Cabs</div>
+            </div>
+          </div>
+
           <div></div>
         </header>
         <section>

@@ -11,9 +11,10 @@ function LikeButton({
   recipeName,
   recipeStyle,
   recipeType,
-  recipeCabs,
+  recipeServe,
   recipeImage,
   recipeUri,
+  recipeCabs,
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const queryClient = useQueryClient();
@@ -42,6 +43,7 @@ function LikeButton({
       recipeCabs,
       recipeImage,
       recipeUri,
+      recipeServe,
     };
 
     if (isLiked) {

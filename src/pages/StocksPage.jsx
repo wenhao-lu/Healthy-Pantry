@@ -410,6 +410,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
                     recipeStyle={recipe.recipe.cuisineType[0]}
                     recipeType={recipe.recipe.mealType[0]}
                     recipeCabs={Math.round(Number(recipe.recipe.calories))}
+                    recipeServe={recipe.recipe.yield}
                     recipeImage={recipe.recipe.image}
                     recipeUri={recipe.recipe.uri.split('_').pop()}
                   />

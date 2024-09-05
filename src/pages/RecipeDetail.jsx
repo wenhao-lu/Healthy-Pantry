@@ -161,6 +161,7 @@ function RecipeDetail() {
                   recipeStyle={recipe.cuisineType[0]}
                   recipeType={recipe.mealType[0]}
                   recipeCabs={Math.round(Number(recipe.calories))}
+                  recipeServe={recipe.yield}
                   recipeImage={recipe.image}
                   recipeUri={recipe.uri.split('_').pop()}
                 />

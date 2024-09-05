@@ -45,7 +45,11 @@ function RecipeList() {
           <div className="col-span-2">Recipe</div>
           <div>Style</div>
           <div>Type</div>
-          <div>Cabs</div>
+          <div className="text-[0.5rem]">
+            <div>Cabs</div>
+            <div className="border-t-[0.1rem]">Serving</div>
+          </div>
+
           <div></div>
         </header>
         <section>
@@ -71,7 +75,11 @@ function RecipeList() {
               <div className="break-words text-[0.55rem] italic">
                 {recipe.recipeType}
               </div>
-              <div className="text-[0.55rem] italic">{recipe.recipeCabs}</div>
+              <div className="text-[0.55rem] italic">
+                {Math.round(
+                  Number(recipe.recipeCabs) / Number(recipe.recipeServe),
+                )}
+              </div>
               <button
                 className="opacity-60 hover:opacity-100"
                 onClick={() => handleDeleteClick(recipe.recipeUri)}

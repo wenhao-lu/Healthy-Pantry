@@ -75,6 +75,7 @@ function GetLowfatRecipes() {
                 recipeCabs={Math.round(Number(lowfatRecipe.recipe.calories))}
                 recipeImage={lowfatRecipe.recipe.image}
                 recipeUri={lowfatRecipe.recipe.uri.split('_').pop()}
+                recipeServe={lowfatRecipe.recipe.yield}
               />
             </div>
 

@@ -72,7 +72,7 @@ function StockList() {
                 </button>
                 <button
                   className="px-1 text-[0.8rem] opacity-70 hover:opacity-100"
-                  onClick={() => handleSearchClick(stock.stockName)}
+                  //onClick={() => handleSearchClick(stock.stockName)}
                 >
                   🧑‍🍳
                 </button>

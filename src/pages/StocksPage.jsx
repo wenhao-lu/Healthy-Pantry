@@ -126,7 +126,8 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
   async function fetchStockNutrition(stockName, stockQuantity, stockUnit) {
     try {
       const res = await fetch(
-        `https://api.edamam.com/api/nutrition-data?app_id=${APP_ID_1}&app_key=${APP_KEY_1}&nutrition-type=cooking&ingr=${stockQuantity}%20${stockUnit}%20${stockName}`,
+        `https://api.edamam.com/api/nutrition-data?app_id=${APP_ID_1}&app_key=${APP_KEY_1}&nutrition-type=cooking&ingr=100%20g%20${stockName}`,
+        //`https://api.edamam.com/api/nutrition-data?app_id=${APP_ID_1}&app_key=${APP_KEY_1}&nutrition-type=cooking&ingr=${stockQuantity}%20${stockUnit}%20${stockName}`,
       );
       const data = await res.json();
       console.log(data);
@@ -249,6 +250,11 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
       <div className="min-h-[30dvh] bg-indigo-50 px-4 py-4">
         <div className="ml-auto mr-auto w-[28rem]">
           <p className="pb-2 text-xl font-semibold">Food List 🧀</p>
+          <div className="mb-2 flex flex-row items-center justify-between border-b-2 border-gray-400 px-4 pb-2 text-[0.9rem] transition-all duration-300 ease-in-out hover:border-blue-500">
+            <p>ITEM</p>
+            <p>NUTRITION / 100g</p>
+            <p>MANAGE</p>
+          </div>
 
           {isLoading ? (
             <Spinner />
@@ -259,7 +265,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
               {stocks.map((item) => (
                 <li
                   key={item.id}
-                  className="grid grid-cols-4 items-center justify-between border-b-2 border-gray-200"
+                  className="grid grid-cols-4 items-center justify-between border-b-2 border-gray-200 py-1"
                 >
                   <div className="flex w-48 text-gray-700">
                     <p className="capitalize">{item.stockName}</p>
@@ -300,7 +306,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
                     </div>
                     <div className="flex">
                       <p className="rounded-sm bg-gray-300 px-0.5">Sugar</p>
-                      <p className="rounded-sm bg-gray-100 px-0.5">
+                      <p className="rounded-sm bg-gray-50 px-0.5">
                         {item.sugar}
                       </p>
                     </div>
@@ -336,6 +342,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
                   onSubmit={handleSubmitEdit}
                   className="m-auto flex w-4/5 flex-col items-center rounded-md border border-indigo-200 shadow-sm transition"
                 >
+                  <p className="italic text-gray-600">Editing Item</p>
                   <div className="flex flex-nowrap gap-2 pt-2">
                     <input
                       type="text"

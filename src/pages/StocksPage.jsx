@@ -300,7 +300,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
                     </div>
                     <div className="flex">
                       <p className="rounded-sm bg-gray-300 px-0.5">Sugar</p>
-                      <p className="rounded-sm bg-gray-50 px-0.5">
+                      <p className="rounded-sm bg-gray-100 px-0.5">
                         {item.sugar}
                       </p>
                     </div>

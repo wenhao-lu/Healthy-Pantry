@@ -104,18 +104,12 @@ function Dashboard() {
         </div>
 
         <div className="my-4 grid grid-cols-2 gap-3">
-          <div className="rounded-md border-gray-100 bg-gray-50 py-14">
-            row-2-col-1
-          </div>
-          <div className="rounded-md border-gray-100 bg-gray-50 py-14">
-            row-2-col-2
-          </div>
+          <div className="rounded-md border-gray-100 bg-gray-50 py-14"></div>
+          <div className="rounded-md border-gray-100 bg-gray-50 py-14"></div>
         </div>
 
         <div>
-          <div className="rounded-md border-gray-100 bg-gray-50 py-24">
-            row-3-col-1
-          </div>
+          <div className="rounded-md border-gray-50 bg-gray-50 py-24"></div>
         </div>
       </div>
     </>

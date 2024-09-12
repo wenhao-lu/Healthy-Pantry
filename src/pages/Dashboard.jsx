@@ -87,7 +87,7 @@ function Dashboard() {
         </div>
 
         <div>
-          <div className="rounded-md border-gray-100 bg-gray-50 py-24"></div>
+          <div className="rounded-md border-gray-50 bg-gray-50 py-24"></div>
         </div>
       </div>
     </>

@@ -11,6 +11,56 @@ export async function getRecipes() {
   return data;
 }
 
+// Function to upload image to Supabase Storage
+/*
+export const uploadImageToSupabase = async (recipeImage, recipeName) => {
+  try {
+    // Convert image URL to Blob
+    const response = await fetch(recipeImage);
+    const blob = await response.blob();
+
+    // Create a unique file name
+    const fileName = `${recipeName}-${Date.now()}.jpg`;
+
+    // Upload the image to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('recipe-images') // Ensure this is the correct bucket name
+      .upload(fileName, blob);
+
+    if (error) throw error;
+
+    // Return the file path of the uploaded image
+    return data.path;
+  } catch (error) {
+    console.error('Error uploading image to Supabase:', error.message);
+    throw error;
+  }
+};
+
+// Add a new recipe to Supabase with the image file path
+export const addRecipe = async (recipe) => {
+  try {
+    // Upload the image first
+    const imageFilePath = await uploadImageToSupabase(recipe.recipeImage, recipe.recipeName);
+    
+    // Update recipe object with the image file path
+    const recipeWithImage = { ...recipe, recipeImageFilePath: imageFilePath };
+    
+    // Insert the recipe into the 'recipes' table
+    const { data, error } = await supabase
+      .from('recipes')
+      .insert([recipeWithImage]);
+
+    if (error) throw new Error(error.message);
+    return data;
+  } catch (error) {
+    console.error('Error adding recipe:', error.message);
+    throw error;
+  }
+};
+
+*/
+
 export async function addRecipe(newRecipe) {
   const { data, error } = await supabase.from('recipes').insert([newRecipe]);
 

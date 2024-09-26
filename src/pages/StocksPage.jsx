@@ -231,7 +231,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
           ></input>
 
           <select
-            className="rounded-md bg-yellow-500 text-center"
+            className="rounded-md bg-yellow-50 text-center"
             //value={stockUnit}
             onChange={(e) => setStockUnit(e.target.value)}
           >

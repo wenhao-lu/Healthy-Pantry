@@ -212,7 +212,7 @@ function StocksPage({ lowfatRecipes, setLowfatRecipes }) {
         className="flex flex-col items-center justify-center bg-emerald-200 py-4"
         onSubmit={handleSubmit}
       >
-        <p className="text-l pb-4">New food 🍗 in the fridge 🫙 </p>
+        <p className="text-l pb-4"> 🍗 New food in the fridge 🫙 </p>
 
         <div className="flex justify-center gap-4 pb-4">
           <input

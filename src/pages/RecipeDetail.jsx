@@ -184,7 +184,7 @@ function RecipeDetail() {
               <div className="flex items-center justify-between border-b-2 pb-2">
                 <p>Ingredients</p>
                 <p className="text-sm opacity-60">
-                  ⏱️ {recipe.totalTime / 60} hrs
+                  ⏱️ {(recipe.totalTime / 60).toFixed(2)} hrs
                 </p>
               </div>
               <div className="mb-4">
